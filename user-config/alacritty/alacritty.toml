@@ -1,0 +1,31 @@
+[general]
+import = [ "~/.config/alacritty/themes/afterglow.toml" ]
+live_config_reload = true
+
+[window]
+opacity = 0.9
+title = "Terminal"
+dynamic_title = false
+
+[font]
+normal.family = "Hack Nerd Font"
+size = 9.0
+normal.style = "Regular"
+bold.style = "Bold"
+italic.style = "Italic"
+bold_italic.style = "Bold Italic"
+
+[selection]
+save_to_clipboard = true
+
+[cursor]
+style.shape = "Beam"
+vi_mode_style.shape = "Block"
+
+[mouse]
+hide_when_typing = true
+
+[keyboard]
+bindings = [
+  { key = "Space", mods = "Alt", action = "ToggleViMode" }
+]
