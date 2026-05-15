@@ -2,17 +2,16 @@
 
 set -eu
 
-# Script params
-DEPENDENCIES=("build-essential" "git")
-
-# Global conts
+# Global consts
 readonly ROOT_DIR=$(dirname "$0")
 
 # Imports
+source "$ROOT_DIR/config.sh"
+
 source "$ROOT_DIR/lib/log.sh"
-source "$ROOT_DIR/lib/file.sh"
 source "$ROOT_DIR/lib/user.sh"
-source "$ROOT_DIR/lib/utils.sh"
+
+source "$ROOT_DIR/modules/gui/main.sh"
 
 _usage() {
   cat << EOF
@@ -25,42 +24,6 @@ ARGUMENTS:
               will be selected the user who has dir in /home. If
               users count more then 1 script will breaked.
 EOF
-}
-
-_cp_config() {
-  local file="${1:?'Dont get file name!'}"
-  local path="${2:-$HOME_CONFIG}"
-
-  if [[ -d "$path" ]]; then
-    path="$path/$(basename $file)"
-  fi
-  
-  mk_dir $(dirname "$path") > /dev/null
-  cp -r "$CONFIG_DIR/$file" "$path"
-  
-  find "$path" -type d -exec chmod 700 {} +
-  find "$path" -type f -exec chmod 600 {} +
-}
-
-_install_keyd() {
-  trap 'cleanup_apt 1' SIGINT SIGTERM
-  
-  # Install dependencies
-  apt update &&
-    apt install -y ${DEPENDENCIES[@]} && unset DEPENDENCIES
-
-  # Install and configure keyd
-  local keyd_dir="/tmp/keyd-install"
-  [[ -d $keyd_dir ]] && rm -rf $keyd_dir
-  git clone https://github.com/rvaiya/keyd $keyd_dir
-  cd $keyd_dir
-  make && make install
-  cd /
-  rm -rf $keyd_dir
-  cp_config "keyd" /etc
-  systemctl enable keyd && systemctl start keyd
-
-  cleanup_apt
 }
 
 main() {
@@ -83,13 +46,13 @@ main() {
     log_error "Run script as root."
     exit 1
   fi
-  
+
   # Get install params
   readonly USERNAME="${1:-$(get_user)}"
   readonly HOME="/home/$USERNAME"
   readonly HOME_CONFIG="$HOME/.config"
 
-  _install_keyd
+  install_gui
 }
 
 main "$@"

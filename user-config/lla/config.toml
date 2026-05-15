@@ -139,7 +139,7 @@ hide_group = false
 relative_dates = false
 
 # Column order for long view (use built-in keys or field:<custom_field> for plugin data)
-columns = ["permissions", "size", "modified", "user", "group", "name"]
+columns = ["permissions", "size", "user", "group", "name"]
 
 # Table formatter configuration
 [formatters.table]

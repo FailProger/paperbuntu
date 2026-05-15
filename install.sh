@@ -2,20 +2,19 @@
 
 set -eu
 
-# Script params    INFO: Mey be edited
-readonly REPO_URL="https://github.com/FailProger/paperbuntu"
-readonly CONFIG_FILE_NAME="config.sh"
-readonly LIB_FILE_NAME="lib.sh"
-
-readonly CONFIGURE_SCRIPT_NAME="configure.sh"
-readonly INSTALL_DEPENDENCIES=("debootstrap" "parted")
-
-# Global conts
+# Global consts
 readonly ROOT_DIR=$(dirname "$0")
-readonly CONFIG_FILE="$ROOT_DIR/$CONFIG_FILE_NAME"
-readonly LIB_FILE="$ROOT_DIR/lib/$LIB_FILE_NAME"
 
-usage() {
+# Imports
+source "$ROOT_DIR/config.sh"
+
+source "$ROOT_DIR/lib/log.sh"
+source "$ROOT_DIR/lib/disk.sh"
+
+source "$ROOT_DIR/modules/debootstrap.sh"
+source "$ROOT_DIR/modules/chroot-configure.sh"
+
+_usage() {
   cat << EOF
 Usage: ./$(basename "$0") [OPTION]...
 Home page: github ($REPO_URL)
@@ -32,95 +31,21 @@ OPTIONS:
 EOF
 }
 
-part_disk() {
-  # Get disk
-  local disk="/dev/$DISK_NAME"
-
-  # Part disk
-  wipefs -fqa $disk
-  parted $disk mklabel gpt
-  parted $disk mkpart ESP fat32 1MiB 513MiB
-  parted $disk set 1 esp on
-  parted $disk mkpart root ext4 513MiB 100%
-}
-
-format_disk() {
-  # Get partitions names
-  local efi=$(find /dev -name "$DISK_NAME*1")
-  local root=$(find /dev -name "$DISK_NAME*2")
-  
-  # Format partitions
-  mkfs.fat -F 32 $efi
-  mkfs.ext4 -F $root
-}
-
-mount_disk() {
-  # Get partitions names
-  local efi=$(find /dev -name "$DISK_NAME*1")
-  local root=$(find /dev -name "$DISK_NAME*2")
-
-  # Mount partitions
-  mount $root /mnt
-  mkdir -p /mnt/boot/efi
-  mount $efi /mnt/boot/efi
-}
-
-umount_disk() {
-  umount -R /mnt 2> /dev/null
-  [[ ${1:-1} -eq 0 ]] || exit 1
-}
-
-install_system() {
-  # Install dependencies
-  apt update && apt install -y ${INSTALL_DEPENDENCIES[@]}
-
-  # Part and format disk
-  part_disk && format_disk
-
-  # Mount disk
-  mount_disk
-
-  # Install base system
-  debootstrap --arch=$SYSTEM_ARCH --variant=$SYSTEM_VARIANT "$SYSTEM_SUITE" /mnt "$SYSTEM_REPO"
-
-  # Mount system
-  mount --bind /dev /mnt/dev
-  mount --bind /dev/pts /mnt/dev/pts
-  mount -t proc proc /mnt/proc
-  mount -t sysfs sys /mnt/sys
-  mount --bind /sys/firmware/efi/efivars /mnt/sys/firmware/efi/efivars
-  cp /etc/resolv.conf /mnt/etc/resolv.conf
-  
-  # Copy repo
-  local repo_dir=$(mk_dir "/mnt/tmp/${REPO_URL##*/}")
-  cp -r ./* "$repo_dir"
-
-  # Configure system
-  chroot /mnt /bin/bash "${repo_dir#/mnt}/$CONFIGURE_SCRIPT_NAME" -u "$USERNAME" -p "$PASSWORD" -d "$DISK_NAME"
-  unset repo_dir
-
-  umount_disk 0
-
-  reboot
-}
-
 main() {
-  source "$LIB_FILE"
-  
   local username=""
   local password=""
-  local disk=""
+  local disk_name=""
   local run_install=""
   
   # Get script options
   while getopts ":hu:p:d:y" opt; do
     case "$opt" in
-      h) usage; exit 0;;
+      h) _usage; exit 0;;
       u) username="$OPTARG";;
       p) password="$OPTARG";;
-      d) disk="$OPTARG";;
+      d) disk_name="$OPTARG";;
       y) run_install="yes";;
-      ?) log_error "Uncorrect option: -$OPTARG."; echo; usage; exit 1;;
+      ?) log_error "Uncorrect option: -$OPTARG."; echo; _usage; exit 1;;
     esac
   done
 
@@ -131,8 +56,8 @@ main() {
   fi
 
   # Get disk name
-  readonly DISK_NAME=${disk:-$(lsblk | grep disk -m 1 | cut -f 1 -d " ")}
-
+  readonly DISK_NAME=${disk_name:-$(get_disk_name)} && unset disk_name
+  
   # Ask user continue installation
   while [[ -z "$run_install" ]]; do
     read -p "WARNING: All data on disk $DISK_NAME will be erased, continue? [Y/N] " run_install
@@ -143,18 +68,14 @@ main() {
     esac
   done
 
-  # Get install params
-  readonly USERNAME="${username:-$DEFAULT_USERNAME}"
-  readonly PASSWORD="${password:-$DEFAULT_PASSWORD}"
-  source "$CONFIG_FILE"
-
-  unset username
-  unset password
   unset run_install
-  unset disk
 
-  trap umount_disk SIGINT SIGTERM
-  install_system
+  # Get install params
+  readonly USERNAME="${username:-$DEFAULT_USERNAME}" && unset username
+  readonly PASSWORD="${password:-$DEFAULT_PASSWORD}" && unset password
+
+  debootstrap_install
+  chroot_configure_system
 }
 
 main "$@"

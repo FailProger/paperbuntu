@@ -2,11 +2,8 @@
 
 set -eu
 
-# Script params    INFO: Mey be edited
-readonly REPO_URL="https://github.com/FailProger/paperbuntu"
-readonly CONFIG_DIR_NAME="user-config"
-readonly LIB_FILE_NAME="lib.sh"
-readonly GUI_INSTALL=(
+# Script params
+GUI_PACKS=(
   "xorg"
   "i3"
   "i3status"
@@ -14,63 +11,65 @@ readonly GUI_INSTALL=(
   "j4-dmenu-desktop"
   "feh"
   "sddm"
-  )
+)
 
-# Global conts
+# Global consts
 readonly ROOT_DIR=$(dirname "$0")
-readonly CONFIG_DIR="$ROOT_DIR/$CONFIG_DIR_NAME"
-readonly LIB_FILE="$ROOT_DIR/lib/$LIB_FILE_NAME"
 
-usage() {
+# Imports
+source "$ROOT_DIR/config.sh"
+
+source "$ROOT_DIR/lib/log.sh"
+source "$ROOT_DIR/lib/file.sh"
+source "$ROOT_DIR/lib/user.sh"
+source "$ROOT_DIR/lib/utils.sh"
+
+_usage() {
   cat << EOF
 Usage: ./$(basename "$0") [OPTION] [<USERNAME>]
 Home page: github ($REPO_URL)
 OPTIONS:
   -h    This help message.
 ARGUMENTS:
-  USERNAME    User for which i3 will be configured. If not getted
+  USERNAME    User for which programms will be installed. If not getted
               will be selected the user who has dir in /home. If
               users count more then 1 script will breaked.
 EOF
 }
 
-cleanup() {
-  apt autoremove -y && apt autoclean -y
-  exit ${1:-1}
-}
-trap cleanup SIGINT SIGTERM
-
-install_i3() {
+_install_i3() {
+  trap 'cleanup_apt 1' SIGINT SIGTERM
+  
   # GUI install
-  apt update && apt install -y ${GUI_INSTALL[@]}
+  apt update &&
+    apt install -y ${GUI_PACKS[@]} && unset GUI_PACKS
+  
   cp_config "i3"
   cp_config "i3status"
 
   local sddm_dir=$(mk_dir "/etc/sddm.conf.d")
   cat > $sddm_dir/autologin.conf << EOF
-  [Autologin]
-  User=$USERNAME
-  Session=i3
+[Autologin]
+User=$USERNAME
+Session=i3
 EOF
 
-  cleanup 0
+  cleanup_apt
 }
 
 main() {
-  source "$LIB_FILE"
-  
   # Get script options
   while getopts ":h" opt; do
     case "$opt" in
-      h) usage; exit 0;;
-      ?) log_error "Uncorrect option: -$OPTARG."; echo; usage; exit 1;;
+      h) _usage; exit 0;;
+      ?) log_error "Uncorrect option: -$OPTARG."; echo; _usage; exit 1;;
     esac
   done
 
   # Check arguments count
   if [[ "$#" -gt 1 ]]; then
     log_error "Given many arguments."; echo
-    usage; exit 1
+    _usage; exit 1
   fi
   
   # Check root user
@@ -84,7 +83,7 @@ main() {
   readonly HOME="/home/$USERNAME"
   readonly HOME_CONFIG="$HOME/.config"
 
-  install_i3
+  _install_i3
 }
 
 main "$@"
