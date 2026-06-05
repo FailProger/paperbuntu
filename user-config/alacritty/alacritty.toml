@@ -27,5 +27,9 @@ hide_when_typing = true
 
 [keyboard]
 bindings = [
-  { key = "Space", mods = "Alt", action = "ToggleViMode" }
+  { key = "Space", mods = "Alt", action = "ToggleViMode" },
+  { key = "H", mods = "Alt", chars = "\u001B[D" },
+  { key = "J", mods = "Alt", chars = "\u001B[B" },
+  { key = "K", mods = "Alt", chars = "\u001B[A" },
+  { key = "L", mods = "Alt", chars = "\u001B[C" },
 ]
