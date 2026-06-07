@@ -12,7 +12,7 @@ fi
 
 # Script params
 DEPENDENCIES=("build-essential" "xclip")
-CLI_PACKS=("wget" "zsh" "gdu" "neovim")
+CLI_PACKS=("ssh" "wget" "zsh" "gdu" "neovim")
 
 # Imports
 source "$ROOT_DIR/lib/file.sh"
@@ -27,9 +27,7 @@ install_cli() {
   
   # Install dependencies
   apt update &&
-    apt install -y ${DEPENDENCIES[@]} && unset DEPENDENCIES &&
-    apt install -y ${INSTALL_DEPENDENCIES[@]} && unset INSTALL_DEPENDENCIES &&
-    apt install -y ${CONFIGURE_DEPENDENCIES[@]} && unset CONFIGURE_DEPENDENCIES
+    apt install -y ${DEPENDENCIES[@]} && unset DEPENDENCIES
   
   cp_config "git/gitconfig" "$HOME/.gitconfig"
 

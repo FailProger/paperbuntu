@@ -5,15 +5,18 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-# Change default dir and file perms
-umask 0022
+# Umask
+umask 022
 
 # Path to your Oh My Zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
-# python venv zsh plugin
+# Python venv zsh plugin
 export PYTHON_AUTO_VRUN=true
 export PYTHON_VENV_NAME=".venv"
+
+# John the Ripper
+export PATH="$PATH:/opt/john-the-ripper"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time Oh My Zsh is loaded, in which case,
@@ -61,6 +64,12 @@ unalias l
 alias ll="lla --no-dotfiles"
 alias lls="lla --no-dotfiles --include-dirs"
 alias llas="lla --include-dirs"
+
+# Aliases for John the Ripper
+alias john="/opt/john-the-ripper/john"
+
+# Aliases for dirsearch
+alias dirsearch=/opt/dirsearch/.venv/bin/python /opt/dirsearch/dirsearch.py
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

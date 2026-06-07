@@ -13,7 +13,7 @@ if [[
 fi
 
 # Script params
-DEPENDENCIES=("debootstrap" "parted")
+DEPENDENCIES=("debootstrap" "parted" "zip" "unzip")
 
 # Imports
 if [[ -z "${REPO_URL:-}" ]]; then

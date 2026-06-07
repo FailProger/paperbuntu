@@ -24,8 +24,7 @@ source "$ROOT_DIR/modules/system/install.sh"
 configure_system() {
   # Install dependencies
   apt update &&
-    apt install -y ${CONFIGURE_DEPENDENCIES[@]} && unset CONFIGURE_DEPENDENCIES &&
-    apt install -y ${INSTALL_DEPENDENCIES[@]} && unset INSTALL_DEPENDENCIES
+    apt install -y ${CONFIGURE_DEPENDENCIES[@]} && unset CONFIGURE_DEPENDENCIES
 
   # Configure locales, time, hostname, hosts and fstab,
   # add user and configure apt repo
@@ -53,10 +52,13 @@ configure_system() {
 
   unset repo_dir
 
-  # Start graphic install
+  # Install graphic
   $ROOT_DIR/graphic-install.sh "$USERNAME"
 
-  # Start user install
+  # Install users programms
   $ROOT_DIR/cli-install.sh "$USERNAME"
   $ROOT_DIR/gui-install.sh "$USERNAME"
+
+  # Install pentest tools
+  $ROOT_DIR/pentest-install.sh
 }

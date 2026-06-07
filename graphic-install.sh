@@ -3,6 +3,12 @@
 set -eu
 
 # Script params
+DEPENDENCIES=(
+  "curl"
+  "zip"
+  "unzip"
+  "fontconfig"
+)
 GUI_PACKS=(
   "xorg"
   "i3"
@@ -37,11 +43,12 @@ ARGUMENTS:
 EOF
 }
 
-_install_i3() {
+_install_graphic() {
   trap 'cleanup_apt 1' SIGINT SIGTERM
   
   # GUI install
   apt update &&
+    apt install -y ${DEPENDENCIES[@]} && unset DEPENDENCIES &&
     apt install -y ${GUI_PACKS[@]} && unset GUI_PACKS
   
   cp_config "i3"
@@ -54,7 +61,21 @@ User=$USERNAME
 Session=i3
 EOF
 
+  _install_fonts
+
   cleanup_apt
+}
+
+_install_fonts() {
+  # Install Hack Nerd Font
+  local nerd_fonts_dir=$(mk_dir "/usr/local/share/fonts/hack-nerd-font/")
+  curl -LO "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/Hack.zip"
+  unzip Hack.zip -d "$nerd_fonts_dir"
+  rm Hack.zip
+  rm "$nerd_fonts_dir/LICENSE.md" "$nerd_fonts_dir/README.md"
+  chmod -R 644 $nerd_fonts_dir/*
+  chmod +x $nerd_fonts_dir
+  fc-cache -fv
 }
 
 main() {
@@ -83,7 +104,7 @@ main() {
   readonly HOME="/home/$USERNAME"
   readonly HOME_CONFIG="$HOME/.config"
 
-  _install_i3
+  _install_graphic
 }
 
 main "$@"

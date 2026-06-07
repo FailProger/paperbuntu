@@ -8,12 +8,6 @@ if [[ -z "${ROOT_DIR:-}" ]]; then
 fi
 
 # Script params
-INSTALL_DEPENDENCIES=(
-  "curl"
-  "zip"
-  "unzip"
-  "fontconfig"
-)
 BASE_PACKS=(
   "linux-image-generic"
   "linux-headers-generic"
@@ -45,14 +39,4 @@ instsall_bootloader() {
 install_users_packs() {
   apt update &&
     apt install -y ${USERS_PACKS[@]} && unset USERS_PACKS
-
-  # Install Nerd Fonts
-  local nerd_fonts_dir=$(mk_dir "/usr/local/share/fonts/hack-nerd-font/")
-  curl -LO "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/Hack.zip"
-  unzip Hack.zip -d "$nerd_fonts_dir"
-  rm Hack.zip
-  rm "$nerd_fonts_dir/LICENSE.md" "$nerd_fonts_dir/README.md"
-  chmod -R 644 $nerd_fonts_dir/*
-  chmod +x $nerd_fonts_dir
-  fc-cache -fv
 }
