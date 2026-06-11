@@ -10,10 +10,6 @@ if [[
   exit 1
 fi
 
-# Script params
-DEPENDENCIES=("build-essential" "xclip")
-CLI_PACKS=("ssh" "wget" "zsh" "gdu" "neovim")
-
 # Imports
 source "$ROOT_DIR/lib/file.sh"
 source "$ROOT_DIR/lib/user.sh"
@@ -31,12 +27,8 @@ install_cli() {
   
   cp_config "git/gitconfig" "$HOME/.gitconfig"
 
-  # Install cli programms from apt
-  apt update &&
-    apt install -y ${CLI_PACKS[@]} && unset CLI_PACKS
-
-  # Install other cli programms
-  install_other
+  # Install all cli programms
+  install_all
   
   # Configure all cli programms
   configure_all

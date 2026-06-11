@@ -10,15 +10,17 @@ if [[
   exit 1
 fi
 
-CONFIGURE_DEPENDENCIES=("git" "curl")
+# Script params
+DEPENDENCIES=("git" "curl")
 
+# Imports
 source "$ROOT_DIR/lib/file.sh"
 source "$ROOT_DIR/lib/user.sh"
 
 configure_all() {
   # Install dependencies
   apt update &&
-    apt install -y ${CONFIGURE_DEPENDENCIES[@]} && unset CONFIGURE_DEPENDENCIES
+    apt install -y ${DEPENDENCIES[@]} && unset DEPENDENCIES
   
   # Configure all cli programms
   _configure_zsh; _configure_nvim
