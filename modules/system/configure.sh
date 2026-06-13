@@ -13,7 +13,7 @@ if [[
 fi
 
 # Script params
-CONFIGURE_DEPENDENCIES=("locales")
+readonly SYS_CONFIGURE_DEPENDENCIES=("locales")
 
 # Imports
 if [[ -z "${REPO_URL:-}" ]]; then

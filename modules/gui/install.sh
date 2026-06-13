@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+
+set -eu
+
+if [[ -z "${ROOT_DIR:-}" ]]; then
+  echo "[ERROR] This is module. Please don't run it."
+  exit 1
+fi
+
+# Script params
+readonly GUI_INSTALL_DEPENDENCIES=('wget' 'bzip2')
+readonly GUI_PACKS=('alacritty')
+
+# Imports
+
+install_all() {
+  # Install dependencies and gui programms from apt
+  apt update &&
+    apt install -y ${GUI_INSTALL_DEPENDENCIES[@]} &&
+    apt install -y ${GUI_PACKS[@]}
+  
+  # Install other gui programms
+  _install_zen_browser;
+}
+
+_install_zen_browser() {
+  local download_dir='/tmp/zen-install'
+  mk_dir "$download_dir" > /dev/null
+  
+  wget 'https://github.com/zen-browser/desktop/releases/latest/download/zen.linux-x86_64.tar.xz' -O "$download_dir/zen.tar.xz"
+  tar -xf "$download_dir/zen.tar.xz" -C /opt
+  ln -s /opt/zen/zen /usr/local/bin/zen
+
+  cat > /usr/share/applications/zen.desktop << EOF
+[Desktop Entry]
+Version=$(/opt/zen/zen --version | cut -f 3 -d ' ')
+Name=Zen
+Comment=Beautifully designed, privacy-focused, and packed with features.
+GenericName=Web Browser
+Keywords=Internet;WWW;Browser;Web;Explorer
+Exec=zen
+Terminal=false
+X-MultipleArgs=false
+Type=Application
+Icon=/opt/zen/browser/chrome/icons/default/default128.png
+Categories=GNOME;GTK;Network;WebBrowser;
+MimeType=text/html;text/xml;application/xhtml+xml;application/xml;application/rss+xml;application/rdf+xml;image/gif;image/jpeg;image/png;x-scheme-handler/http;x-scheme-handler/https;x-scheme-handler/ftp;x-scheme-handler/chrome;video/webm;application/x-xpinstall;
+StartupNotify=true
+EOF
+
+  rm -rf "$download_dir"
+}

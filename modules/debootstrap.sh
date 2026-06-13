@@ -13,7 +13,7 @@ if [[
 fi
 
 # Script params
-DEPENDENCIES=("debootstrap" "parted" "zip" "unzip")
+readonly DBS_DEPENDENCIES=("debootstrap" "parted" "zip" "unzip")
 
 # Imports
 if [[ -z "${REPO_URL:-}" ]]; then
@@ -24,8 +24,7 @@ source "$ROOT_DIR/lib/disk.sh"
 debootstrap_install() {
   # Install dependencies
   apt update &&
-    apt install -y ${DEPENDENCIES[@]} &&
-    unset DEPENDENCIES
+    apt install -y ${DBS_DEPENDENCIES[@]}
 
   # Part and format disk
   _part_disk && _format_disk

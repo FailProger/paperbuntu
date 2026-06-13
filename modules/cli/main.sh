@@ -11,8 +11,6 @@ if [[
 fi
 
 # Imports
-source "$ROOT_DIR/lib/file.sh"
-source "$ROOT_DIR/lib/user.sh"
 source "$ROOT_DIR/lib/utils.sh"
 
 source "$ROOT_DIR/modules/cli/install.sh"
@@ -20,18 +18,12 @@ source "$ROOT_DIR/modules/cli/configure.sh"
 
 install_cli() {
   trap 'cleanup_apt 1' SIGINT SIGTERM
-  
-  # Install dependencies
-  apt update &&
-    apt install -y ${DEPENDENCIES[@]} && unset DEPENDENCIES
-  
-  cp_config "git/gitconfig" "$HOME/.gitconfig"
 
   # Install all cli programms
   install_all
   
   # Configure all cli programms
   configure_all
-
+  
   cleanup_apt
 }

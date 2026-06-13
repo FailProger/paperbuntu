@@ -8,12 +8,12 @@ if [[ -z "${ROOT_DIR:-}" ]]; then
 fi
 
 # Script params
-BASE_PACKS=(
+readonly SYS_BASE_PACKS=(
   "linux-image-generic"
   "linux-headers-generic"
   "sudo"
 )
-USERS_PACKS=("network-manager")
+readonly SYS_USERS_PACKS=("network-manager")
 
 # Imports
 source "$ROOT_DIR/lib/file.sh"
@@ -22,7 +22,7 @@ install_kernel() {
   # Install base
   export DEBIAN_FRONTEND=noninteractive  # Env for noninteractive keyboard-configuration
   apt update &&
-    apt install -y ${BASE_PACKS[@]} && unset BASE_PACKS
+    apt install -y ${SYS_BASE_PACKS[@]}
 
   unset DEBIAN_FRONTEND
 }
@@ -38,5 +38,5 @@ instsall_bootloader() {
 
 install_users_packs() {
   apt update &&
-    apt install -y ${USERS_PACKS[@]} && unset USERS_PACKS
+    apt install -y ${SYS_USERS_PACKS[@]}
 }

@@ -8,8 +8,8 @@ if [[ -z "${ROOT_DIR:-}" ]]; then
 fi
 
 # Script params
-DEPENDENCIES=("curl" "build-essential" "xclip")
-CLI_PACKS=("ssh" "wget" "zsh" "gdu" "neovim")
+readonly CLI_INSTALL_DEPENDENCIES=('curl' 'build-essential' 'xclip')
+readonly CLI_PACKS=('ssh' 'wget' 'zsh' 'gdu' 'neovim')
 
 # Imports
 source "$ROOT_DIR/lib/user.sh"
@@ -17,8 +17,8 @@ source "$ROOT_DIR/lib/user.sh"
 install_all() {
   # Install dependencies and cli programms from apt
   apt update &&
-    apt install -y ${DEPENDENCIES[@]} && unset DEPENDENCIES &&
-    apt install -y ${CLI_PACKS[@]} && unset CLI_PACKS
+    apt install -y ${CLI_INSTALL_DEPENDENCIES[@]} &&
+    apt install -y ${CLI_PACKS[@]}
 
   # Install other cli programms
   _install_lla
@@ -26,6 +26,6 @@ install_all() {
 
 _install_lla() {
   # Install lla from github
-  curl -sSL https://raw.githubusercontent.com/chaqchase/lla/main/install.sh | bash
-  cp_config "lla"
+  curl -sSL 'https://raw.githubusercontent.com/chaqchase/lla/main/install.sh' | bash
+  cp_config 'lla'
 }

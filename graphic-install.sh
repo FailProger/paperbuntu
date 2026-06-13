@@ -3,13 +3,13 @@
 set -eu
 
 # Script params
-DEPENDENCIES=(
+readonly DEPENDENCIES=(
   "curl"
   "zip"
   "unzip"
   "fontconfig"
 )
-GUI_PACKS=(
+readonly GUI_PACKS=(
   "xorg"
   "i3"
   "i3status"
@@ -48,8 +48,8 @@ _install_graphic() {
   
   # GUI install
   apt update &&
-    apt install -y ${DEPENDENCIES[@]} && unset DEPENDENCIES &&
-    apt install -y ${GUI_PACKS[@]} && unset GUI_PACKS
+    apt install -y ${DEPENDENCIES[@]} &&
+    apt install -y ${GUI_PACKS[@]}
   
   cp_config "i3"
   cp_config "i3status"
