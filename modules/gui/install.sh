@@ -8,16 +8,16 @@ if [[ -z "${ROOT_DIR:-}" ]]; then
 fi
 
 # Script params
-DEPENDENCIES=('wget' 'bzip2')
-GUI_PACKS=('alacritty')
+readonly GUI_INSTALL_DEPENDENCIES=('wget' 'bzip2')
+readonly GUI_PACKS=('alacritty')
 
 # Imports
 
 install_all() {
   # Install dependencies and gui programms from apt
   apt update &&
-    apt install -y ${DEPENDENCIES[@]} && unset DEPENDENCIES &&
-    apt install -y ${GUI_PACKS[@]} && unset GUI_PACKS
+    apt install -y ${GUI_INSTALL_DEPENDENCIES[@]} &&
+    apt install -y ${GUI_PACKS[@]}
   
   # Install other gui programms
   _install_zen_browser;

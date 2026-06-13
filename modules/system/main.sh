@@ -24,7 +24,7 @@ source "$ROOT_DIR/modules/system/install.sh"
 configure_system() {
   # Install dependencies
   apt update &&
-    apt install -y ${CONFIGURE_DEPENDENCIES[@]} && unset CONFIGURE_DEPENDENCIES
+    apt install -y ${SYS_CONFIGURE_DEPENDENCIES[@]}
 
   # Configure locales, time, hostname, hosts and fstab,
   # add user and configure apt repo

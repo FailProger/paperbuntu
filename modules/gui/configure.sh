@@ -8,7 +8,7 @@ if [[ -z "${ROOT_DIR:-}" ]]; then
 fi
 
 # Script params
-DEPENDENCIES=('git' 'curl')
+readonly GUI_CONFIGURE_DEPENDENCIES=('git' 'curl')
 
 # Imports
 source "$ROOT_DIR/lib/user.sh"
@@ -16,7 +16,7 @@ source "$ROOT_DIR/lib/user.sh"
 configure_all() {
   # Install dependencies
   apt update &&
-    apt install -y ${DEPENDENCIES[@]} && unset DEPENDENCIES
+    apt install -y ${GUI_CONFIGURE_DEPENDENCIES[@]}
   
   # Configure all gui programms
   _configure_alacritty
