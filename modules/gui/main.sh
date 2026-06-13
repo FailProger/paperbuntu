@@ -7,30 +7,20 @@ if [[ -z "${ROOT_DIR:-}" ]]; then
   exit 1
 fi
 
-# Script params
-DEPENDENCIES=("extrepo")
-GUI_PACKS=("alacritty" "librewolf")
-
 # Imports
-source "$ROOT_DIR/lib/user.sh"
 source "$ROOT_DIR/lib/utils.sh"
+
+source "$ROOT_DIR/modules/gui/install.sh"
+source "$ROOT_DIR/modules/gui/configure.sh"
 
 install_gui() {
   trap 'cleanup_apt 1' SIGINT SIGTERM
-  
-  # Install dependencies
-  apt update &&
-    apt install -y ${DEPENDENCIES[@]} && unset DEPENDENCIES
-  
-  extrepo enable librewolf
 
-  # Install gui
-  apt update &&
-    apt install -y ${GUI_PACKS[@]} && unset GUI_PACKS
+  # Install all gui programms
+  install_all
 
-  # Configure alacritty
-  cp_config "alacritty"
-  update-alternatives --install /usr/bin/x-terminal-emulator x-terminal-emulator /usr/bin/alacritty 100
+  # Configure all gui programms
+  configure_all
 
   cleanup_apt
 }

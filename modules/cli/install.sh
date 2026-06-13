@@ -8,8 +8,8 @@ if [[ -z "${ROOT_DIR:-}" ]]; then
 fi
 
 # Script params
-DEPENDENCIES=("curl" "build-essential" "xclip")
-CLI_PACKS=("ssh" "wget" "zsh" "gdu" "neovim")
+DEPENDENCIES=('curl' 'build-essential' 'xclip')
+CLI_PACKS=('ssh' 'wget' 'zsh' 'gdu' 'neovim')
 
 # Imports
 source "$ROOT_DIR/lib/user.sh"
@@ -26,6 +26,6 @@ install_all() {
 
 _install_lla() {
   # Install lla from github
-  curl -sSL https://raw.githubusercontent.com/chaqchase/lla/main/install.sh | bash
-  cp_config "lla"
+  curl -sSL 'https://raw.githubusercontent.com/chaqchase/lla/main/install.sh' | bash
+  cp_config 'lla'
 }
