@@ -1,0 +1,68 @@
+challenge: Yes
+enabled_groups:
+- aws
+- azure
+- base
+- database
+- docker
+- flyio
+- fs
+- gcp
+- git
+- github
+- heroku
+- kubernetes
+- mongodb
+- mysql
+- netlify
+- network
+- npm
+- psql
+- redis
+- terraform
+- vercel
+disabled_groups: []
+ignores_patterns_ids: []
+deny_patterns_ids: []
+context:
+  protected_branches:
+  - main
+  - master
+  - production
+  - release/*
+  production_k8s_patterns:
+  - prod
+  - production
+  - prd
+  - live
+  production_env_vars:
+    ENVIRONMENT: production
+    NODE_ENV: production
+    RAILS_ENV: production
+  sensitive_paths: []
+  escalation:
+    elevated: Enter
+    critical: Yes
+audit_enabled: true
+blast_radius: true
+min_severity: Medium
+agent:
+  auto_deny_severity: High
+  require_human_approval: false
+  challenge: inherit
+  min_severity: inherit
+  severity_escalation: inherit
+llm: null
+wrappers:
+  tools: {}
+  challenge: inherit
+  min_severity: inherit
+severity_escalation:
+  enabled: true
+  critical: Yes
+  high: Enter
+  medium: Math
+  low: Math
+  info: Math
+group_escalation: {}
+check_escalation: {}

@@ -1,0 +1,302 @@
+colourful: true
+
+filekinds:
+  normal: {foreground: "#D8DEE9"}
+  directory: {foreground: "#88C0D0", is_bold: true}
+  symlink: {foreground: "#81A1C1", is_italic: true, is_underline: true}
+  pipe: {foreground: "#4C566A"}
+  block_device: {foreground: "#BF616A"}
+  char_device: {foreground: "#BF616A"}
+  socket: {foreground: "#B48EAD"}
+  special: {foreground: "#D8DEE9"}
+  executable: {foreground: "#A3BE8C", is_bold: true}
+  mount_point: {foreground: "#88C0D0"}
+
+perms:
+  user_read: {foreground: "#A3BE8C", is_bold: false}
+  user_write: {foreground: "#B48EAD", is_bold: false}
+  user_execute_file: {foreground: "#BF616A", is_bold: false, is_underline: false}
+  user_execute_other: {foreground: "#BF616A", is_bold: false}
+  group_read: {foreground: "#A3BE8C"}
+  group_write: {foreground: "#B48EAD"}
+  group_execute: {foreground: "#BF616A"}
+  other_read: {foreground: "#A3BE8C"}
+  other_write: {foreground: "#B48EAD"}
+  other_execute: {foreground: "#BF616A"}
+  special_user_file: {foreground: "#D08770", is_bold: true, is_underline: true}
+  special_other: {foreground: "#4C566A"}
+  attribute: {foreground: "#4C566A"}
+
+size:
+  number_byte: {foreground: "#4C566A", is_bold: false}
+  number_kilo: {foreground: "#4C566A", is_bold: false}
+  number_mega: {foreground: "#88C0D0", is_bold: false}
+  number_giga: {foreground: "#B48EAD", is_bold: false}
+  number_huge: {foreground: "#BF616A", is_bold: false}
+  unit_byte: {foreground: "#4C566A", is_bold: false}
+  unit_kilo: {foreground: "#4C566A", is_bold: false}
+  unit_mega: {foreground: "#88C0D0", is_bold: false}
+  unit_giga: {foreground: "#B48EAD", is_bold: false}
+  unit_huge: {foreground: "#BF616A", is_bold: false}
+
+users:
+  user_you: {foreground: "#B48EAD", is_bold: false}
+  user_root: {foreground: "#BF616A", is_bold: true}
+  user_other: {foreground: "#4C566A", is_dimmed: true}
+  group_yours: {foreground: "#4C566A"}
+  group_root: {foreground: "#BF616A", is_bold: true}
+  group_other: {foreground: "#4C566A", is_dimmed: true}
+
+links:
+  normal: {foreground: "#81A1C1"}
+  multi_link_file: {foreground: "#88C0D0"}
+
+git:
+  new: {foreground: "#A3BE8C"}
+  modified: {foreground: "#EBCB8B"}
+  deleted: {foreground: "#BF616A"}
+  renamed: {foreground: "#88C0D0"}
+  typechange: {foreground: "#D08770"}
+  ignored: {foreground: "#4C566A"}
+  conflicted: {foreground: "#BF616A", is_bold: true}
+
+git_repo:
+  branch_main: {foreground: "#D8DEE9"}
+  branch_other: {foreground: "#B48EAD"}
+  git_clean: {foreground: "#A3BE8C"}
+  git_dirty: {foreground: "#BF616A"}
+
+security_context:
+  colon: {foreground: "#4C566A"}
+  user: {foreground: "#B48EAD"}
+  role: {foreground: "#88C0D0"}
+  typ: {foreground: "#81A1C1"}
+  range: {foreground: "#D08770"}
+
+file_type:
+  image: {foreground: "#D08770"}
+  video: {foreground: "#D08770"}
+  music: {foreground: "#D08770"}
+  lossless: {foreground: "#A3BE8C"}
+  crypto: {foreground: "#B48EAD"}
+  document: {foreground: "#D8DEE9"}
+  compressed: {foreground: "#BF616A"}
+  temp: {foreground: "#4C566A"}
+  compiled: {foreground: "#4C566A"}
+  build: {foreground: "#4C566A"}
+  source: {foreground: "#81A1C1"}
+
+punctuation: {foreground: "#4C566A"}
+date: {foreground: "#4C566A"}
+inode: {foreground: "#4C566A"}
+blocks: {foreground: "#4C566A"}
+header: {foreground: "#D8DEE9"}
+octal: {foreground: "#88C0D0"}
+flags: {foreground: "#B48EAD"}
+
+symlink_path: {foreground: "#81A1C1"}
+control_char: {foreground: "#BF616A"}
+broken_symlink: {foreground: "#BF616A"}
+broken_path_overlay: {foreground: "#4C566A"}
+
+filenames:
+  # --- PROGRAMMING ---
+  "Cargo.toml": {filename: {foreground: "#BF616A"}, icon: {style: {foreground: "#BF616A"}}}
+  "CMakeLists.txt": {filename: {foreground: "#BF616A"}, icon: {style: {foreground: "#BF616A"}}}
+  "Makefile": {filename: {foreground: "#BF616A"}, icon: {style: {foreground: "#BF616A"}}}
+  "go.mod": {filename: {foreground: "#5E81AC"}, icon: {style: {foreground: "#5E81AC"}}}
+  "package.json": {filename: {foreground: "#88C0D0"}, icon: {style: {foreground: "#88C0D0"}}}
+  
+  # --- WEB ---
+  "Dockerfile": {filename: {foreground: "#5E81AC"}, icon: {style: {foreground: "#5E81AC"}}}
+  "docker-compose.yml": {filename: {foreground: "#5E81AC"}, icon: {style: {foreground: "#5E81AC"}}}
+  
+  # --- DOCUMENTS ---
+  "README.md": {filename: {foreground: "#88C0D0"}, icon: {style: {foreground: "#88C0D0"}}}
+  "LICENSE": {filename: {foreground: "#88C0D0"}, icon: {style: {foreground: "#88C0D0"}}}
+
+  # --- CONFIG FILES ---
+  ".gitignore": {filename: {foreground: "#5E81AC"}, icon: {style: {foreground: "#5E81AC"}}}
+  ".env": {filename: {foreground: "#88C0D0"}, icon: {style: {foreground: "#88C0D0"}}}
+  ".dockerignore": {filename: {foreground: "#5E81AC"}, icon: {style: {foreground: "#5E81AC"}}}
+  ".editorconfig": {filename: {foreground: "#5E81AC"}, icon: {style: {foreground: "#5E81AC"}}}
+  ".prettierrc": {filename: {foreground: "#5E81AC"}, icon: {style: {foreground: "#5E81AC"}}}
+  ".eslintrc": {filename: {foreground: "#5E81AC"}, icon: {style: {foreground: "#5E81AC"}}}
+  ".babelrc": {filename: {foreground: "#5E81AC"}, icon: {style: {foreground: "#5E81AC"}}}
+  "flake.nix": {filename: {foreground: "#88C0D0"}, icon: {style: {foreground: "#88C0D0"}}}
+  "flake.lock": {filename: {foreground: "#4C566A"}, icon: {style: {foreground: "#4C566A"}}}
+  "shell.nix": {filename: {foreground: "#88C0D0"}, icon: {style: {foreground: "#88C0D0"}}}
+  "default.nix": {filename: {foreground: "#88C0D0"}, icon: {style: {foreground: "#88C0D0"}}}
+  
+  # --- PATTERNS ---
+  "*rc": {filename: {foreground: "#5E81AC"}, icon: {style: {foreground: "#5E81AC"}}}
+  "min.*": {filename: {foreground: "#4C566A"}, icon: {style: {foreground: "#4C566A"}}}
+  "test.*": {filename: {foreground: "#A3BE8C"}, icon: {style: {foreground: "#A3BE8C"}}}
+  "spec.*": {filename: {foreground: "#A3BE8C"}, icon: {style: {foreground: "#A3BE8C"}}}
+  "config.*": {filename: {foreground: "#5E81AC"}, icon: {style: {foreground: "#5E81AC"}}}
+
+  # --- SPECIAL DIRS ---
+  "node_modules": {filename: {foreground: "#4C566A", is_dimmed: true, is_bold: true}, icon: {style: {foreground: "#4C566A"}}}
+  "target": {filename: {foreground: "#4C566A", is_bold: true}, icon: {style: {foreground: "#4C566A"}}}
+  "dist": {filename: {foreground: "#4C566A", is_bold: true}, icon: {style: {foreground: "#4C566A"}}}
+  ".git": {filename: {foreground: "#88C0D0", is_bold: true}, icon: {style: {foreground: "#88C0D0"}}}
+  "build": {filename: {foreground: "#4C566A", is_bold: true}, icon: {style: {foreground: "#4C566A"}}}
+  ".cache": {filename: {foreground: "#4C566A", is_bold: true}, icon: {style: {foreground: "#4C566A"}}}
+  ".config": {filename: {foreground: "#88C0D0", is_bold: true}, icon: {style: {foreground: "#88C0D0"}}}
+  "venv": {filename: {foreground: "#A3BE8C", is_bold: true}, icon: {style: {foreground: "#A3BE8C"}}}
+  ".venv": {filename: {foreground: "#A3BE8C", is_bold: true}, icon: {style: {foreground: "#A3BE8C"}}}
+  "*-env": {filename: {foreground: "#A3BE8C", is_bold: true}, icon: {style: {foreground: "#A3BE8C"}}}
+  "*_cache": {filename: {foreground: "#4C566A", is_bold: true}, icon: {style: {foreground: "#4C566A"}}}
+  "*-cache": {filename: {foreground: "#4C566A", is_bold: true}, icon: {style: {foreground: "#4C566A"}}}
+  
+extensions:
+  # --- PROGRAMMING ---
+  # Rust
+  "rs": {filename: {foreground: "#BF616A"}, icon: {style: {foreground: "#BF616A"}}}
+  "toml": {filename: {foreground: "#88C0D0"}, icon: {style: {foreground: "#88C0D0"}}}
+  "lock": {filename: {foreground: "#4C566A"}, icon: {style: {foreground: "#4C566A"}}}
+  # Python
+  "py": {filename: {foreground: "#A3BE8C"}, icon: {style: {foreground: "#A3BE8C"}}}
+  "pyi": {filename: {foreground: "#A3BE8C"}, icon: {style: {foreground: "#A3BE8C"}}}
+  "pyw": {filename: {foreground: "#A3BE8C"}, icon: {style: {foreground: "#A3BE8C"}}}
+  "ipynb": {filename: {foreground: "#A3BE8C"}, icon: {style: {foreground: "#A3BE8C"}}}
+  # JavaScript / TypeScript
+  "js": {filename: {foreground: "#EBCB8B"}, icon: {style: {foreground: "#EBCB8B"}}}
+  "mjs": {filename: {foreground: "#EBCB8B"}, icon: {style: {foreground: "#EBCB8B"}}}
+  "cjs": {filename: {foreground: "#EBCB8B"}, icon: {style: {foreground: "#EBCB8B"}}}
+  "jsx": {filename: {foreground: "#EBCB8B"}, icon: {style: {foreground: "#EBCB8B"}}}
+  "ts": {filename: {foreground: "#81A1C1"}, icon: {style: {foreground: "#81A1C1"}}}
+  "tsx": {filename: {foreground: "#81A1C1"}, icon: {style: {foreground: "#81A1C1"}}}
+  "d.ts": {filename: {foreground: "#81A1C1"}, icon: {style: {foreground: "#81A1C1"}}}
+  # Java
+  "java": {filename: {foreground: "#BF616A"}, icon: {style: {foreground: "#BF616A"}}}
+  "jar": {filename: {foreground: "#BF616A"}, icon: {style: {foreground: "#BF616A"}}}
+  "class": {filename: {foreground: "#BF616A"}, icon: {style: {foreground: "#BF616A"}}}
+  # C# / .NET
+  "cs": {filename: {foreground: "#A3BE8C"}, icon: {style: {foreground: "#A3BE8C"}}}
+  "csx": {filename: {foreground: "#A3BE8C"}, icon: {style: {foreground: "#A3BE8C"}}}
+  # C / C++
+  "cpp": {filename: {foreground: "#BF616A"}, icon: {style: {foreground: "#BF616A"}}}
+  "cc": {filename: {foreground: "#BF616A"}, icon: {style: {foreground: "#BF616A"}}}
+  "cxx": {filename: {foreground: "#BF616A"}, icon: {style: {foreground: "#BF616A"}}}
+  "c++": {filename: {foreground: "#BF616A"}, icon: {style: {foreground: "#BF616A"}}}
+  "h": {filename: {foreground: "#BF616A"}, icon: {style: {foreground: "#BF616A"}}}
+  "hpp": {filename: {foreground: "#BF616A"}, icon: {style: {foreground: "#BF616A"}}}
+  "hxx": {filename: {foreground: "#BF616A"}, icon: {style: {foreground: "#BF616A"}}}
+  "h++": {filename: {foreground: "#BF616A"}, icon: {style: {foreground: "#BF616A"}}}
+  # Go
+  "go": {filename: {foreground: "#81A1C1"}, icon: {style: {foreground: "#81A1C1"}}}
+  # Ruby
+  "rb": {filename: {foreground: "#BF616A"}, icon: {style: {foreground: "#BF616A"}}}
+  "erb": {filename: {foreground: "#BF616A"}, icon: {style: {foreground: "#BF616A"}}}
+  # PHP
+  "php": {filename: {foreground: "#A3BE8C"}, icon: {style: {foreground: "#A3BE8C"}}}
+  "phtml": {filename: {foreground: "#A3BE8C"}, icon: {style: {foreground: "#A3BE8C"}}}
+  # Swift
+  "swift": {filename: {foreground: "#BF616A"}, icon: {style: {foreground: "#BF616A"}}}
+  # Kotlin
+  "kt": {filename: {foreground: "#A3BE8C"}, icon: {style: {foreground: "#A3BE8C"}}}
+  "kts": {filename: {foreground: "#A3BE8C"}, icon: {style: {foreground: "#A3BE8C"}}}
+  # Nix
+  "nix": {filename: {foreground: "#81A1C1"}, icon: {style: {foreground: "#81A1C1"}}}
+  
+  # --- WEB ---
+  # Layouts
+  "html": {filename: {foreground: "#B48EAD"}, icon: {style: {foreground: "#B48EAD"}}}
+  "htm": {filename: {foreground: "#B48EAD"}, icon: {style: {foreground: "#B48EAD"}}}
+  "xhtml": {filename: {foreground: "#B48EAD"}, icon: {style: {foreground: "#B48EAD"}}}
+  "xml": {filename: {foreground: "#B48EAD"}, icon: {style: {foreground: "#B48EAD"}}}
+  "svg": {filename: {foreground: "#B48EAD"}, icon: {style: {foreground: "#B48EAD"}}}
+  "vue": {filename: {foreground: "#A3BE8C"}, icon: {style: {foreground: "#A3BE8C"}}}
+  "wasm": {filename: {foreground: "#B48EAD"}, icon: {style: {foreground: "#B48EAD"}}}
+  "ejs": {filename: {foreground: "#B48EAD"}, icon: {style: {foreground: "#B48EAD"}}}
+  # Styles
+  "css": {filename: {foreground: "#A3BE8C"}, icon: {style: {foreground: "#A3BE8C"}}}
+  "scss": {filename: {foreground: "#A3BE8C"}, icon: {style: {foreground: "#A3BE8C"}}}
+  "sass": {filename: {foreground: "#A3BE8C"}, icon: {style: {foreground: "#A3BE8C"}}}
+  "less": {filename: {foreground: "#A3BE8C"}, icon: {style: {foreground: "#A3BE8C"}}}
+  "styl": {filename: {foreground: "#A3BE8C"}, icon: {style: {foreground: "#A3BE8C"}}}
+  # Configs
+  "json": {filename: {foreground: "#88C0D0"}, icon: {style: {foreground: "#88C0D0"}}}
+  "json5": {filename: {foreground: "#88C0D0"}, icon: {style: {foreground: "#88C0D0"}}}
+  "yaml": {filename: {foreground: "#88C0D0"}, icon: {style: {foreground: "#88C0D0"}}}
+  "yml": {filename: {foreground: "#88C0D0"}, icon: {style: {foreground: "#88C0D0"}}}
+  "conf": {filename: {foreground: "#88C0D0"}, icon: {style: {foreground: "#88C0D0"}}}
+  "config": {filename: {foreground: "#88C0D0"}, icon: {style: {foreground: "#88C0D0"}}}
+  "ini": {filename: {foreground: "#88C0D0"}, icon: {style: {foreground: "#88C0D0"}}}
+  "sql": {filename: {foreground: "#81A1C1"}, icon: {style: {foreground: "#81A1C1"}}}
+  "tsv": {filename: {foreground: "#88C0D0"}, icon: {style: {foreground: "#88C0D0"}}}
+  "csv": {filename: {foreground: "#88C0D0"}, icon: {style: {foreground: "#88C0D0"}}}
+  "db": {filename: {foreground: "#88C0D0"}, icon: {style: {foreground: "#88C0D0"}}}
+  "sqlite": {filename: {foreground: "#88C0D0"}, icon: {style: {foreground: "#88C0D0"}}}
+  
+  # --- SCRIPTS ---
+  "sh": {filename: {foreground: "#A3BE8C", is_bold: true}, icon: {style: {foreground: "#A3BE8C"}}}
+  "bash": {filename: {foreground: "#A3BE8C", is_bold: true}, icon: {style: {foreground: "#A3BE8C"}}}
+  "zsh": {filename: {foreground: "#A3BE8C", is_bold: true}, icon: {style: {foreground: "#A3BE8C"}}}
+  "fish": {filename: {foreground: "#A3BE8C", is_bold: true}, icon: {style: {foreground: "#A3BE8C"}}}
+  "ps1": {filename: {foreground: "#A3BE8C", is_bold: true}, icon: {style: {foreground: "#A3BE8C"}}}
+  "psm1": {filename: {foreground: "#A3BE8C", is_bold: true}, icon: {style: {foreground: "#A3BE8C"}}}
+  "psd1": {filename: {foreground: "#A3BE8C", is_bold: true}, icon: {style: {foreground: "#A3BE8C"}}}
+  "pl": {filename: {foreground: "#88C0D0", is_bold: true}, icon: {style: {foreground: "#88C0D0"}}}
+  "pm": {filename: {foreground: "#88C0D0", is_bold: true}, icon: {style: {foreground: "#88C0D0"}}}
+  "tcl": {filename: {foreground: "#88C0D0", is_bold: true}, icon: {style: {foreground: "#88C0D0"}}}
+  "lua": {filename: {foreground: "#88C0D0", is_bold: true}, icon: {style: {foreground: "#88C0D0"}}}
+  "vim": {filename: {foreground: "#88C0D0", is_bold: true}, icon: {style: {foreground: "#88C0D0"}}}
+  "vimrc": {filename: {foreground: "#88C0D0", is_bold: true}, icon: {style: {foreground: "#88C0D0"}}}
+  "r": {filename: {foreground: "#88C0D0", is_bold: true}, icon: {style: {foreground: "#88C0D0"}}}
+
+  # --- DOCUMENTS ---
+  "md": {filename: {foreground: "#D8DEE9"}, icon: {style: {foreground: "#D8DEE9"}}}
+  "rst": {filename: {foreground: "#D8DEE9"}, icon: {style: {foreground: "#D8DEE9"}}}
+  "txt": {filename: {foreground: "#D8DEE9"}, icon: {style: {foreground: "#D8DEE9"}}}
+  "org": {filename: {foreground: "#D8DEE9"}, icon: {style: {foreground: "#D8DEE9"}}}
+  "wiki": {filename: {foreground: "#D8DEE9"}, icon: {style: {foreground: "#D8DEE9"}}}
+  "adoc": {filename: {foreground: "#D8DEE9"}, icon: {style: {foreground: "#D8DEE9"}}}
+  "tex": {filename: {foreground: "#D8DEE9"}, icon: {style: {foreground: "#D8DEE9"}}}
+  "pdf": {filename: {foreground: "#D8DEE9"}, icon: {style: {foreground: "#D8DEE9"}}}
+  "epub": {filename: {foreground: "#D8DEE9"}, icon: {style: {foreground: "#D8DEE9"}}}
+  "doc": {filename: {foreground: "#D8DEE9"}, icon: {style: {foreground: "#D8DEE9"}}}
+  "docx": {filename: {foreground: "#D8DEE9"}, icon: {style: {foreground: "#D8DEE9"}}}
+  "rtf": {filename: {foreground: "#D8DEE9"}, icon: {style: {foreground: "#D8DEE9"}}}
+
+  # --- MEDIA ---
+  # Images
+  "png": {filename: {foreground: "#D08770"}, icon: {style: {foreground: "#D08770"}}}
+  "jpg": {filename: {foreground: "#D08770"}, icon: {style: {foreground: "#D08770"}}}
+  "jpeg": {filename: {foreground: "#D08770"}, icon: {style: {foreground: "#D08770"}}}
+  "gif": {filename: {foreground: "#D08770"}, icon: {style: {foreground: "#D08770"}}}
+  "bmp": {filename: {foreground: "#D08770"}, icon: {style: {foreground: "#D08770"}}}
+  "tiff": {filename: {foreground: "#D08770"}, icon: {style: {foreground: "#D08770"}}}
+  "webp": {filename: {foreground: "#D08770"}, icon: {style: {foreground: "#D08770"}}}
+  "ico": {filename: {foreground: "#D08770"}, icon: {style: {foreground: "#D08770"}}}
+  "heic": {filename: {foreground: "#D08770"}, icon: {style: {foreground: "#D08770"}}}
+  # Video
+  "mp4": {filename: {foreground: "#D08770"}, icon: {style: {foreground: "#D08770"}}}
+  "webm": {filename: {foreground: "#D08770"}, icon: {style: {foreground: "#D08770"}}}
+  "mov": {filename: {foreground: "#D08770"}, icon: {style: {foreground: "#D08770"}}}
+  "avi": {filename: {foreground: "#D08770"}, icon: {style: {foreground: "#D08770"}}}
+  "mkv": {filename: {foreground: "#D08770"}, icon: {style: {foreground: "#D08770"}}}
+  "flv": {filename: {foreground: "#D08770"}, icon: {style: {foreground: "#D08770"}}}
+  "wmv": {filename: {foreground: "#D08770"}, icon: {style: {foreground: "#D08770"}}}
+  "m4v": {filename: {foreground: "#D08770"}, icon: {style: {foreground: "#D08770"}}}
+  "3gp": {filename: {foreground: "#D08770"}, icon: {style: {foreground: "#D08770"}}}
+  # Audio
+  "mp3": {filename: {foreground: "#D08770"}, icon: {style: {foreground: "#D08770"}}}
+  "wav": {filename: {foreground: "#D08770"}, icon: {style: {foreground: "#D08770"}}}
+  "ogg": {filename: {foreground: "#D08770"}, icon: {style: {foreground: "#D08770"}}}
+  "m4a": {filename: {foreground: "#D08770"}, icon: {style: {foreground: "#D08770"}}}
+  "flac": {filename: {foreground: "#D08770"}, icon: {style: {foreground: "#D08770"}}}
+  "aac": {filename: {foreground: "#D08770"}, icon: {style: {foreground: "#D08770"}}}
+  "wma": {filename: {foreground: "#D08770"}, icon: {style: {foreground: "#D08770"}}}
+
+  # --- ARCHIVES ---
+  "zip": {filename: {foreground: "#BF616A"}, icon: {style: {foreground: "#BF616A"}}}
+  "tar": {filename: {foreground: "#BF616A"}, icon: {style: {foreground: "#BF616A"}}}
+  "gz": {filename: {foreground: "#BF616A"}, icon: {style: {foreground: "#BF616A"}}}
+  "bz2": {filename: {foreground: "#BF616A"}, icon: {style: {foreground: "#BF616A"}}}
+  "xz": {filename: {foreground: "#BF616A"}, icon: {style: {foreground: "#BF616A"}}}
+  "7z": {filename: {foreground: "#BF616A"}, icon: {style: {foreground: "#BF616A"}}}
+  "rar": {filename: {foreground: "#BF616A"}, icon: {style: {foreground: "#BF616A"}}}
+  "iso": {filename: {foreground: "#BF616A"}, icon: {style: {foreground: "#BF616A"}}}
+  "dmg": {filename: {foreground: "#BF616A"}, icon: {style: {foreground: "#BF616A"}}}

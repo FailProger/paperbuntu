@@ -8,8 +8,19 @@ if [[ -z "${ROOT_DIR:-}" ]]; then
 fi
 
 # Script params
-readonly CLI_INSTALL_DEPENDENCIES=('curl' 'build-essential' 'xclip')
-readonly CLI_PACKS=('ssh' 'wget' 'zsh' 'gdu' 'neovim')
+readonly CLI_INSTALL_DEPENDENCIES=('curl' 'build-essential' 'xclip' 'jq')
+readonly CLI_PACKS=(
+  'ssh'
+  'wget'
+  'zsh'
+  'gdu'
+  'neovim'
+  'atuin'
+  'eza'
+  'fzf'
+  'starship'
+  'zoxide'
+)
 
 # Imports
 source "$ROOT_DIR/lib/user.sh"
@@ -20,12 +31,25 @@ install_all() {
     apt install -y ${CLI_INSTALL_DEPENDENCIES[@]} &&
     apt install -y ${CLI_PACKS[@]}
 
+  # Create temp dir
+  local past_dir=$(pwd)
+  local install_dir=$(mk_dir '/tmp/cli-install')
+  cd "$install_dir"
+  
   # Install other cli programms
-  _install_lla
+  _install_shellfirm
+  
+  cd "$past_dir"
+  rm -rf "$install_dir"
 }
 
-_install_lla() {
-  # Install lla from github
-  curl -sSL 'https://raw.githubusercontent.com/chaqchase/lla/main/install.sh' | bash
-  cp_config 'lla'
+_install_shellfirm() {
+  curl -s 'https://api.github.com/repos/kaplanelad/shellfirm/releases/latest' \
+    | jq -r '.assets[] | select(.name | test("shellfirm-.*-x86_64-linux.tar.xz")) | .browser_download_url' \
+    | xargs curl -L -O
+  
+  tar -xf shellfirm*
+  find . -type f -name 'shellfirm' -exec mv {} /usr/local/bin \;
+  
+  rm -rf shellfirm*
 }

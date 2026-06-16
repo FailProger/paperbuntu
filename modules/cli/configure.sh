@@ -4,7 +4,8 @@ set -eu
 
 if [[
   -z "${ROOT_DIR:-}" &&
-  -z "${USERNAME:-}"
+  -z "${USERNAME:-}" &&
+  -z "${HOME:-}"
 ]]; then
   echo "[ERROR] This is module. Please don't run it."
   exit 1
@@ -23,7 +24,14 @@ configure_all() {
     apt install -y ${CLI_CONFIGURE_DEPENDENCIES[@]}
   
   # Configure all cli programms
-  _configure_zsh; _configure_nvim; _configure_git
+  # Shell
+  _configure_zsh; _configure_starship
+  
+  # Development
+  _configure_nvim; _configure_git
+  
+  # Utils
+  _configure_eza; _configure_shellfirm
 }
 
 _configure_zsh() {
@@ -38,18 +46,22 @@ _configure_zsh() {
   export RUNZSH='no'
   sudo -u "$USERNAME" sh -c "$(curl -fsSL 'https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh')" "" --unattended
   
-  # Install plugins and Powerlevel10k
+  # Install plugins
   local omz_custom_dir="$omz_dir/custom"
   git clone --depth 1 'https://github.com/zsh-users/zsh-autosuggestions' "$omz_custom_dir/plugins/zsh-autosuggestions"
   git clone --depth 1 'https://github.com/zsh-users/zsh-syntax-highlighting.git' "$omz_custom_dir/plugins/zsh-syntax-highlighting"
-  git clone --depth 1 'https://github.com/romkatv/powerlevel10k.git' "$omz_custom_dir/themes/powerlevel10k"
   
   # Change own
   ch_own "$omz_dir"
   
   # Copy config files
   cp_config 'zsh/zshrc' "$HOME/.zshrc"
-  cp_config 'p10k/p10k.zsh' "$HOME/.p10k.zsh"
+}
+
+_configure_starship() {
+  local config_dir="$HOME/.config/starship"
+  mk_dir "$config_dir" > /dev/null
+  starship preset 'jetpack' -o "$config_dir/starship.toml"
 }
 
 _configure_nvim() {
@@ -58,4 +70,12 @@ _configure_nvim() {
 
 _configure_git() {
   cp_config 'git/gitconfig' "$HOME/.gitconfig"
+}
+
+_configure_eza() {
+  cp_config 'eza'
+}
+
+_configure_shellfirm() {
+  cp_config 'shellfirm'
 }
