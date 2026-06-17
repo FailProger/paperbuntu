@@ -25,13 +25,13 @@ configure_all() {
   
   # Configure all cli programms
   # Shell
-  _configure_zsh; _configure_starship
+  _configure_zsh; _configure_shellfirm; _configure_starship
   
   # Development
   _configure_nvim; _configure_git
   
-  # Utils
-  _configure_eza; _configure_shellfirm
+  # Files
+  _configure_eza; 
 }
 
 _configure_zsh() {

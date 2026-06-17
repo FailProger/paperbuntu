@@ -74,7 +74,7 @@ main() {
   readonly USERNAME="${username:-$DEFAULT_USERNAME}" && unset username
   readonly PASSWORD="${password:-$DEFAULT_PASSWORD}" && unset password
 
-  debootstrap_install
+  debootstrap_install_system
   chroot_configure_system
 }
 

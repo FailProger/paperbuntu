@@ -4,19 +4,19 @@ set -eu
 
 # Script params
 readonly DEPENDENCIES=(
-  "curl"
-  "zip"
-  "unzip"
-  "fontconfig"
+  'wget'
+  'zip'
+  'unzip'
+  'fontconfig'
 )
 readonly GUI_PACKS=(
-  "xorg"
-  "i3"
-  "i3status"
-  "dmenu"
-  "j4-dmenu-desktop"
-  "feh"
-  "sddm"
+  'xorg'
+  'i3'
+  'i3status'
+  'dmenu'
+  'j4-dmenu-desktop'
+  'feh'
+  'sddm'
 )
 
 # Global consts
@@ -51,11 +51,11 @@ _install_graphic() {
     apt install -y ${DEPENDENCIES[@]} &&
     apt install -y ${GUI_PACKS[@]}
   
-  cp_config "i3"
-  cp_config "i3status"
+  cp_config 'i3'
+  cp_config 'i3status'
 
-  local sddm_dir=$(mk_dir "/etc/sddm.conf.d")
-  cat > $sddm_dir/autologin.conf << EOF
+  local sddm_dir=$(mk_dir '/etc/sddm.conf.d')
+  cat > "$sddm_dir/autologin.conf" << EOF
 [Autologin]
 User=$USERNAME
 Session=i3
@@ -68,13 +68,17 @@ EOF
 
 _install_fonts() {
   # Install Hack Nerd Font
-  local nerd_fonts_dir=$(mk_dir "/usr/local/share/fonts/hack-nerd-font/")
-  curl -LO "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/Hack.zip"
+  local nerd_fonts_dir=$(mk_dir '/usr/local/share/fonts/hack-nerd-font/')
+  
+  wget 'https://github.com/ryanoasis/nerd-fonts/releases/latest/download/Hack.zip'
   unzip Hack.zip -d "$nerd_fonts_dir"
-  rm Hack.zip
+  
+  rm 'Hack.zip'
   rm "$nerd_fonts_dir/LICENSE.md" "$nerd_fonts_dir/README.md"
-  chmod -R 644 $nerd_fonts_dir/*
-  chmod +x $nerd_fonts_dir
+  
+  chmod -R 644 "$nerd_fonts_dir"/*
+  chmod +x "$nerd_fonts_dir"
+  
   fc-cache -fv
 }
 
@@ -89,13 +93,13 @@ main() {
 
   # Check arguments count
   if [[ "$#" -gt 1 ]]; then
-    log_error "Given many arguments."; echo
+    log_error 'Given many arguments!'; echo
     _usage; exit 1
   fi
   
   # Check root user
   if [[ $EUID -ne 0 ]]; then
-    log_error "Run script as root."
+    log_error 'Run script as root!'
     exit 1
   fi
 

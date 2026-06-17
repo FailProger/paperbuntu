@@ -17,11 +17,16 @@ if [[ -z "${REPO_URL:-}" ]]; then
   source "$ROOT_DIR/config.sh"
 fi
 source "$ROOT_DIR/lib/file.sh"
+source "$ROOT_DIR/lib/utils.sh"
 
 source "$ROOT_DIR/modules/system/configure.sh"
 source "$ROOT_DIR/modules/system/install.sh"
 
 configure_system() {
+  trap 'cleanup_apt 1' SIGINT SIGTERM
+  
+  export DEBIAN_FRONTEND='noninteractive'
+
   # Install dependencies
   apt update &&
     apt install -y ${SYS_CONFIGURE_DEPENDENCIES[@]}
@@ -61,4 +66,6 @@ configure_system() {
 
   # Install pentest tools
   $ROOT_DIR/pentest-install.sh
+  
+  cleanup_apt
 }

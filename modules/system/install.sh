@@ -9,22 +9,16 @@ fi
 
 # Script params
 readonly SYS_BASE_PACKS=(
-  "linux-image-generic"
-  "linux-headers-generic"
-  "sudo"
+  'linux-image-generic'
+  'linux-headers-generic'
+  'sudo'
 )
-readonly SYS_USERS_PACKS=("network-manager")
-
-# Imports
-source "$ROOT_DIR/lib/file.sh"
+readonly SYS_USERS_PACKS=('network-manager')
 
 install_kernel() {
   # Install base
-  export DEBIAN_FRONTEND=noninteractive  # Env for noninteractive keyboard-configuration
   apt update &&
     apt install -y ${SYS_BASE_PACKS[@]}
-
-  unset DEBIAN_FRONTEND
 }
 
 instsall_bootloader() {
@@ -32,7 +26,7 @@ instsall_bootloader() {
   
   # Install grub
   local repo_name=${REPO_URL##*/}
-  grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=${repo_name^}
+  grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id="${repo_name^}"
   update-grub
 }
 

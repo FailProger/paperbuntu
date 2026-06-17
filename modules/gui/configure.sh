@@ -8,15 +8,15 @@ if [[ -z "${ROOT_DIR:-}" ]]; then
 fi
 
 # Script params
-readonly GUI_CONFIGURE_DEPENDENCIES=('git' 'curl')
+# readonly GUI_CONFIGURE_DEPENDENCIES=()
 
 # Imports
 source "$ROOT_DIR/lib/user.sh"
 
 configure_all() {
   # Install dependencies
-  apt update &&
-    apt install -y ${GUI_CONFIGURE_DEPENDENCIES[@]}
+  # apt update &&
+  #  apt install -y ${GUI_CONFIGURE_DEPENDENCIES[@]}
   
   # Configure all gui programms
   _configure_alacritty
@@ -24,6 +24,6 @@ configure_all() {
 
 _configure_alacritty() {
   # Configure alacritty
-  cp_config "alacritty"
-  update-alternatives --install /usr/bin/x-terminal-emulator x-terminal-emulator /usr/bin/alacritty 100
+  cp_config 'alacritty'
+  update-alternatives --install /usr/bin/x-terminal-emulator x-terminal-emulator "$(which alacritty)" 100
 }

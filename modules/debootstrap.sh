@@ -21,7 +21,7 @@ if [[ -z "${REPO_URL:-}" ]]; then
 fi
 source "$ROOT_DIR/lib/disk.sh"
 
-debootstrap_install() {
+debootstrap_install_system() {
   # Install dependencies
   apt update &&
     apt install -y ${DBS_DEPENDENCIES[@]}

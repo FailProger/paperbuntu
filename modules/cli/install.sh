@@ -8,22 +8,22 @@ if [[ -z "${ROOT_DIR:-}" ]]; then
 fi
 
 # Script params
-readonly CLI_INSTALL_DEPENDENCIES=('curl' 'build-essential' 'xclip' 'jq')
-readonly CLI_PACKS=(
-  'ssh'
+readonly CLI_INSTALL_DEPENDENCIES=(
   'wget'
+  'gzip'
+  'xz-utils'
+  'build-essential'
+  'xclip'
+  'jq'
+)
+readonly CLI_PACKS=(
+  'openssh-client'
   'zsh'
-  'gdu'
-  'neovim'
-  'atuin'
-  'eza'
-  'fzf'
-  'starship'
-  'zoxide'
 )
 
 # Imports
-source "$ROOT_DIR/lib/user.sh"
+source "$ROOT_DIR/lib/file.sh"
+source "$ROOT_DIR/lib/utils.sh"
 
 install_all() {
   # Install dependencies and cli programms from apt
@@ -33,23 +33,94 @@ install_all() {
 
   # Create temp dir
   local past_dir=$(pwd)
-  local install_dir=$(mk_dir '/tmp/cli-install')
-  cd "$install_dir"
+  local tmp_dir=$(mktemp -d)
+  cd "$tmp_dir"
   
   # Install other cli programms
-  _install_shellfirm
+  # Shell
+  _install_atuin; _install_shellfirm; _install_starship
+  
+  # Files
+  _install_nvim; _install_gdu; _install_eza; _install_fzf; _install_zoxide
   
   cd "$past_dir"
-  rm -rf "$install_dir"
+  rm -rf "$tmp_dir"
+}
+
+_install_nvim() {
+  download 'https://github.com/neovim/neovim/releases/download/stable/nvim-linux-x86_64.tar.gz'
+
+  tar -xf 'nvim'* -C "$(mk_dir /opt)"
+  mv /opt/nvim* /opt/nvim
+  ln -s /opt/nvim/bin/nvim /usr/local/bin/nvim
+
+  rm -rf *'nvim'*
+}
+
+_install_gdu() {
+  download 'https://github.com/dundee/gdu/releases/latest/download/gdu_linux_amd64.tgz'
+  _mv_to_bin 'gdu'
+}
+
+_install_eza() {
+  download 'https://github.com/eza-community/eza/releases/latest/download/eza_x86_64-unknown-linux-gnu.tar.gz'
+  _mv_to_bin 'eza'
+}
+
+_install_fzf() {
+  _get_version_and_download 'https://api.github.com/repos/junegunn/fzf/releases/latest' 'fzf-.*-linux_amd64.tar.gz'
+  _mv_to_bin 'fzf'
+}
+
+_install_zoxide() {
+  _get_version_and_download 'https://api.github.com/repos/ajeetdsouza/zoxide/releases/latest' 'zoxide-.*-x86_64-unknown-linux-musl.tar.gz'
+  _mv_to_bin 'zoxide'
+}
+
+_install_atuin() {
+  download 'https://github.com/atuinsh/atuin/releases/latest/download/atuin-x86_64-unknown-linux-gnu.tar.gz'
+  _mv_to_bin 'atuin'
 }
 
 _install_shellfirm() {
-  curl -s 'https://api.github.com/repos/kaplanelad/shellfirm/releases/latest' \
-    | jq -r '.assets[] | select(.name | test("shellfirm-.*-x86_64-linux.tar.xz")) | .browser_download_url' \
-    | xargs curl -L -O
+  _get_version_and_download 'https://api.github.com/repos/kaplanelad/shellfirm/releases/latest' 'shellfirm-.*-x86_64-linux.tar.xz'
+  _mv_to_bin 'shellfirm'
+}
+
+_install_starship() {
+  download 'https://github.com/starship/starship/releases/latest/download/starship-x86_64-unknown-linux-gnu.tar.gz'
+  _mv_to_bin 'starship'
+}
+
+_get_version_and_download() {
+  local attempts=5
+  local connect_timeout=5
+  local read_timeout=5
+  local between_timeout=2
   
-  tar -xf shellfirm*
-  find . -type f -name 'shellfirm' -exec mv {} /usr/local/bin \;
+  local repo_url="${1:?'Dont get repo url!'}"
+  local file_name="${2:?'Dont get file name!'}"
   
-  rm -rf shellfirm*
+  for (( i=0; i < "$attempts"; i++ )); do
+    if wget -qO- --connect-timeout="$connect_timeout" --read-timeout="$read_timeout" "$repo_url" \
+      | jq -r ".assets[] | select(.name | test(\"$file_name\")) | .browser_download_url" \
+      | xargs wget --connect-timeout="$connect_timeout" --read-timeout="$read_timeout"; then
+      return 0
+    fi
+
+    sleep "$between_timeout"
+  done
+
+  return 1
+}
+
+_mv_to_bin() {
+  local file_name="${1:?'Dont get package name!'}"
+
+  local out_dir=$(mk_dir "dir-$file_name")
+  tar -xf "$file_name"* -C "$out_dir"
+  
+  find . -type f -name "*$file_name*" -perm -111 -exec mv {} "/usr/local/bin/$file_name" \;
+  
+  rm -rf *"$file_name"*
 }
