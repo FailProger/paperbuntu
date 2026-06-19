@@ -2,7 +2,10 @@
 
 set -eu
 
-if [[ -z "${ROOT_DIR:-}" ]]; then
+if [[
+  -z "${ROOT_DIR:-}" &&
+  -z "${REPO_URL:-}"
+]]; then
   echo "[ERROR] This is module. Please don't run it."
   exit 1
 fi

@@ -60,11 +60,11 @@ cargo build --release
 EOF
 
   mv "$HOME/alacritty/target/release/alacritty" /usr/local/bin/alacritty
-  rm -rf "$HOME/*alacritty*"
+  rm -rf "$HOME"/*'alacritty'*
 }
 
 _install_zen_browser() {
-  download 'https://github.com/zen-browser/desktop/releases/latest/download/zen.linux-x86_64.tar.xz'
+  wget_download 'https://github.com/zen-browser/desktop/releases/latest/download/zen.linux-x86_64.tar.xz'
   
   mk_dir /opt
   tar -xf 'zen'* -C /opt

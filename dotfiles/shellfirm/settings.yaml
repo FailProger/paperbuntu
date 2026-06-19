@@ -2,7 +2,6 @@ challenge: Yes
 enabled_groups:
 - aws
 - azure
-- base
 - database
 - docker
 - flyio
@@ -21,7 +20,8 @@ enabled_groups:
 - redis
 - terraform
 - vercel
-disabled_groups: []
+disabled_groups:
+- base
 ignores_patterns_ids: []
 deny_patterns_ids: []
 context:

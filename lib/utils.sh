@@ -14,7 +14,7 @@ cleanup_apt() {
   exit "$return_code"
 }
 
-download() {
+wget_download() {
   local attempts=5
   local connect_timeout=5
   local read_timeout=5

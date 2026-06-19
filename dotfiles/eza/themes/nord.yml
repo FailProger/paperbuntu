@@ -231,20 +231,20 @@ extensions:
   "sqlite": {filename: {foreground: "#88C0D0"}, icon: {style: {foreground: "#88C0D0"}}}
   
   # --- SCRIPTS ---
-  "sh": {filename: {foreground: "#A3BE8C", is_bold: true}, icon: {style: {foreground: "#A3BE8C"}}}
-  "bash": {filename: {foreground: "#A3BE8C", is_bold: true}, icon: {style: {foreground: "#A3BE8C"}}}
-  "zsh": {filename: {foreground: "#A3BE8C", is_bold: true}, icon: {style: {foreground: "#A3BE8C"}}}
-  "fish": {filename: {foreground: "#A3BE8C", is_bold: true}, icon: {style: {foreground: "#A3BE8C"}}}
-  "ps1": {filename: {foreground: "#A3BE8C", is_bold: true}, icon: {style: {foreground: "#A3BE8C"}}}
-  "psm1": {filename: {foreground: "#A3BE8C", is_bold: true}, icon: {style: {foreground: "#A3BE8C"}}}
-  "psd1": {filename: {foreground: "#A3BE8C", is_bold: true}, icon: {style: {foreground: "#A3BE8C"}}}
-  "pl": {filename: {foreground: "#88C0D0", is_bold: true}, icon: {style: {foreground: "#88C0D0"}}}
-  "pm": {filename: {foreground: "#88C0D0", is_bold: true}, icon: {style: {foreground: "#88C0D0"}}}
-  "tcl": {filename: {foreground: "#88C0D0", is_bold: true}, icon: {style: {foreground: "#88C0D0"}}}
-  "lua": {filename: {foreground: "#88C0D0", is_bold: true}, icon: {style: {foreground: "#88C0D0"}}}
-  "vim": {filename: {foreground: "#88C0D0", is_bold: true}, icon: {style: {foreground: "#88C0D0"}}}
-  "vimrc": {filename: {foreground: "#88C0D0", is_bold: true}, icon: {style: {foreground: "#88C0D0"}}}
-  "r": {filename: {foreground: "#88C0D0", is_bold: true}, icon: {style: {foreground: "#88C0D0"}}}
+  "sh": {filename: {foreground: "#A3BE8C"}, icon: {style: {foreground: "#A3BE8C"}}}
+  "bash": {filename: {foreground: "#A3BE8C"}, icon: {style: {foreground: "#A3BE8C"}}}
+  "zsh": {filename: {foreground: "#A3BE8C"}, icon: {style: {foreground: "#A3BE8C"}}}
+  "fish": {filename: {foreground: "#A3BE8C"}, icon: {style: {foreground: "#A3BE8C"}}}
+  "ps1": {filename: {foreground: "#A3BE8C"}, icon: {style: {foreground: "#A3BE8C"}}}
+  "psm1": {filename: {foreground: "#A3BE8C"}, icon: {style: {foreground: "#A3BE8C"}}}
+  "psd1": {filename: {foreground: "#A3BE8C"}, icon: {style: {foreground: "#A3BE8C"}}}
+  "pl": {filename: {foreground: "#88C0D0"}, icon: {style: {foreground: "#88C0D0"}}}
+  "pm": {filename: {foreground: "#88C0D0"}, icon: {style: {foreground: "#88C0D0"}}}
+  "tcl": {filename: {foreground: "#88C0D0"}, icon: {style: {foreground: "#88C0D0"}}}
+  "lua": {filename: {foreground: "#88C0D0"}, icon: {style: {foreground: "#88C0D0"}}}
+  "vim": {filename: {foreground: "#88C0D0"}, icon: {style: {foreground: "#88C0D0"}}}
+  "vimrc": {filename: {foreground: "#88C0D0"}, icon: {style: {foreground: "#88C0D0"}}}
+  "r": {filename: {foreground: "#88C0D0"}, icon: {style: {foreground: "#88C0D0"}}}
 
   # --- DOCUMENTS ---
   "md": {filename: {foreground: "#D8DEE9"}, icon: {style: {foreground: "#D8DEE9"}}}

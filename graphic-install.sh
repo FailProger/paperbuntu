@@ -2,23 +2,6 @@
 
 set -eu
 
-# Script params
-readonly DEPENDENCIES=(
-  'wget'
-  'zip'
-  'unzip'
-  'fontconfig'
-)
-readonly GUI_PACKS=(
-  'xorg'
-  'i3'
-  'i3status'
-  'dmenu'
-  'j4-dmenu-desktop'
-  'feh'
-  'sddm'
-)
-
 # Global consts
 readonly ROOT_DIR=$(dirname "$0")
 
@@ -26,9 +9,9 @@ readonly ROOT_DIR=$(dirname "$0")
 source "$ROOT_DIR/config/config.sh"
 
 source "$ROOT_DIR/lib/log.sh"
-source "$ROOT_DIR/lib/file.sh"
 source "$ROOT_DIR/lib/user.sh"
-source "$ROOT_DIR/lib/utils.sh"
+
+source "$ROOT_DIR/modules/graphic/main.sh"
 
 _usage() {
   cat << EOF
@@ -41,48 +24,6 @@ ARGUMENTS:
               will be selected the user who has dir in /home. If
               users count more then 1 script will breaked.
 EOF
-}
-
-_install_graphic() {
-  trap 'cleanup_apt 1' SIGINT SIGTERM
-  
-  # GUI install
-  apt update &&
-    apt install -y ${DEPENDENCIES[@]} &&
-    apt install -y ${GUI_PACKS[@]}
-  
-  cp_config 'i3'
-  cp_config 'i3status'
-
-  local sddm_dir='/etc/sddm.conf.d'
-  mk_dir "$sddm_dir"
-  
-  cat > "$sddm_dir/autologin.conf" << EOF
-[Autologin]
-User=$USERNAME
-Session=i3
-EOF
-
-  _install_fonts
-
-  cleanup_apt
-}
-
-_install_fonts() {
-  # Install Hack Nerd Font
-  local nerd_fonts_dir='/usr/local/share/fonts/hack-nerd-font/'
-  mk_dir "$nerd_fonts_dir"
-  
-  wget 'https://github.com/ryanoasis/nerd-fonts/releases/latest/download/Hack.zip'
-  unzip Hack.zip -d "$nerd_fonts_dir"
-  
-  rm 'Hack.zip'
-  rm "$nerd_fonts_dir/LICENSE.md" "$nerd_fonts_dir/README.md"
-  
-  chmod -R 644 "$nerd_fonts_dir"/*
-  chmod +x "$nerd_fonts_dir"
-  
-  fc-cache -fv
 }
 
 main() {
@@ -111,7 +52,7 @@ main() {
   readonly HOME="/home/$USERNAME"
   readonly HOME_CONFIG="$HOME/.config"
 
-  _install_graphic
+  install_graphic
 }
 
 main "$@"

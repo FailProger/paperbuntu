@@ -48,7 +48,7 @@ install_all() {
 }
 
 _install_nvim() {
-  download 'https://github.com/neovim/neovim/releases/download/v0.11.7/nvim-linux-x86_64.tar.gz'
+  wget_download 'https://github.com/neovim/neovim/releases/download/v0.11.7/nvim-linux-x86_64.tar.gz'
 
   mk_dir /opt
   tar -xf 'nvim'* -C /opt
@@ -59,12 +59,12 @@ _install_nvim() {
 }
 
 _install_gdu() {
-  download 'https://github.com/dundee/gdu/releases/latest/download/gdu_linux_amd64.tgz'
+  wget_download 'https://github.com/dundee/gdu/releases/latest/download/gdu_linux_amd64.tgz'
   _mv_to_bin 'gdu'
 }
 
 _install_eza() {
-  download 'https://github.com/eza-community/eza/releases/latest/download/eza_x86_64-unknown-linux-gnu.tar.gz'
+  wget_download 'https://github.com/eza-community/eza/releases/latest/download/eza_x86_64-unknown-linux-gnu.tar.gz'
   _mv_to_bin 'eza'
 }
 
@@ -79,7 +79,7 @@ _install_zoxide() {
 }
 
 _install_atuin() {
-  download 'https://github.com/atuinsh/atuin/releases/latest/download/atuin-x86_64-unknown-linux-gnu.tar.gz'
+  wget_download 'https://github.com/atuinsh/atuin/releases/latest/download/atuin-x86_64-unknown-linux-gnu.tar.gz'
   _mv_to_bin 'atuin'
 }
 
@@ -89,7 +89,7 @@ _install_shellfirm() {
 }
 
 _install_starship() {
-  download 'https://github.com/starship/starship/releases/latest/download/starship-x86_64-unknown-linux-gnu.tar.gz'
+  wget_download 'https://github.com/starship/starship/releases/latest/download/starship-x86_64-unknown-linux-gnu.tar.gz'
   _mv_to_bin 'starship'
 }
 
