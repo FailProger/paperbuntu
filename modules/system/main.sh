@@ -14,7 +14,7 @@ fi
 
 # Imports
 if [[ -z "${REPO_URL:-}" ]]; then
-  source "$ROOT_DIR/config.sh"
+  source "$ROOT_DIR/config/config.sh"
 fi
 source "$ROOT_DIR/lib/file.sh"
 source "$ROOT_DIR/lib/utils.sh"

@@ -23,7 +23,7 @@ readonly GUI_PACKS=(
 readonly ROOT_DIR=$(dirname "$0")
 
 # Imports
-source "$ROOT_DIR/config.sh"
+source "$ROOT_DIR/config/config.sh"
 
 source "$ROOT_DIR/lib/log.sh"
 source "$ROOT_DIR/lib/file.sh"

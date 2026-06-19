@@ -50,8 +50,8 @@ cp_config() {
   fi
   
   mk_dir $(dirname "$path") > /dev/null
-  if [[ -n "${CONFIG_DIR:-}" ]]; then
-    cp -r "$CONFIG_DIR/$file" "$path"
+  if [[ -n "${DOTFILES_DIR:-}" ]]; then
+    cp -r "$DOTFILES_DIR/$file" "$path"
   else
     cp -r "$file" "$path"
   fi

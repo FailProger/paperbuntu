@@ -17,7 +17,7 @@ readonly DBS_DEPENDENCIES=("debootstrap" "parted" "zip" "unzip")
 
 # Imports
 if [[ -z "${REPO_URL:-}" ]]; then
-  source "$ROOT_DIR/config.sh"
+  source "$ROOT_DIR/config/config.sh"
 fi
 source "$ROOT_DIR/lib/disk.sh"
 

@@ -4,7 +4,7 @@ set -eu
 
 # Scripts consts     WARN: Don't change
 readonly REPO_URL='https://github.com/FailProger/paperbuntu'
-readonly CONFIG_DIR="$(dirname ${BASH_SOURCE[0]})/user-config"
+readonly DOTFILES_DIR="$(dirname ${BASH_SOURCE[0]})/../dotfiles"
 
 # Installation params
 readonly DEFAULT_USERNAME='paperbuntu'
