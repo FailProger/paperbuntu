@@ -55,14 +55,17 @@ add_user() {
   echo "$USERNAME:$PASSWORD" | chpasswd || passwd "$USERNAME"
 
   # Configure sudo run
-  local sudoers_dir=$(mk_dir "/etc/sudoers.d")
+  local sudoers_dir='/etc/sudoers.d'
+  mk_dir "$sudoers_dir"
+  
   echo "$USERNAME ALL=(ALL) NOPASSWD: ALL" | tee "$sudoers_dir/$USERNAME-nopasswd" > /dev/null
   chmod 440 "$sudoers_dir/$USERNAME-nopasswd"
 }
 
 configure_apt() {
   # Add repositories
-  local apt_dir=$(mk_dir "/etc/apt")
+  local apt_dir='/etc/apt'
+  mk_dir "$apt_dir"
   
   cat > $apt_dir/sources.list << EOF
 deb $MIRROR $RELEASE main restricted universe multiverse
@@ -73,7 +76,8 @@ EOF
 
 configure_users_packs() {
   # Configure Network Manager
-  local netplan_dir=$(mk_dir "/etc/netplan")
+  local netplan_dir='/etc/netplan'
+  mk_dir "$netplan_dir"
   
   cat > $netplan_dir/01-network-manager-all.yaml << EOF
 network:

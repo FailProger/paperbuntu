@@ -12,6 +12,7 @@ fi
 
 # Script params
 readonly GUI_INSTALL_DEPENDENCIES=(
+  'sudo'
   'wget'
   'xz-utils'
   'cmake'
@@ -65,7 +66,8 @@ EOF
 _install_zen_browser() {
   download 'https://github.com/zen-browser/desktop/releases/latest/download/zen.linux-x86_64.tar.xz'
   
-  tar -xf 'zen'* -C "$(mk_dir /opt)"
+  mk_dir /opt
+  tar -xf 'zen'* -C /opt
   ln -s /opt/zen/zen /usr/local/bin/zen
 
   cat > /usr/share/applications/zen.desktop << EOF

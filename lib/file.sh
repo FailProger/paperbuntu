@@ -24,7 +24,6 @@ mk_dir() {
     log_error "Path $dir is file. Please delete it or rename."
     exit 1
   fi
-  echo "$dir"
 }
 
 ch_own() {

@@ -49,7 +49,7 @@ configure_system() {
   
   if [[ "$ROOT_DIR" != "$repo_dir" ]]; then
     cd /
-    mk_dir /home/$USERNAME
+    mk_dir "/home/$USERNAME"
     mv "$ROOT_DIR" "$repo_dir"
     ROOT_DIR="$repo_dir"
     ch_own "$ROOT_DIR"

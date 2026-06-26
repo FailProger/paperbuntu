@@ -31,7 +31,8 @@ chroot_configure_system() {
   cp /etc/resolv.conf /mnt/etc/resolv.conf
   
   # Copy repo
-  local repo_dir=$(mk_dir "/mnt/tmp/${REPO_URL##*/}")
+  local repo_dir="/mnt/tmp/${REPO_URL##*/}"
+  mk_dir "$repo_dir"
   cp -r "$ROOT_DIR"/* "$repo_dir"
 
   # Configure system

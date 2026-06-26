@@ -48,7 +48,7 @@ install_all() {
 }
 
 _install_nvim() {
-  download 'https://github.com/neovim/neovim/releases/download/stable/nvim-linux-x86_64.tar.gz'
+  download 'https://github.com/neovim/neovim/releases/download/v0.11.7/nvim-linux-x86_64.tar.gz'
 
   tar -xf 'nvim'* -C "$(mk_dir /opt)"
   mv /opt/nvim* /opt/nvim
@@ -117,7 +117,9 @@ _get_version_and_download() {
 _mv_to_bin() {
   local file_name="${1:?'Dont get package name!'}"
 
-  local out_dir=$(mk_dir "dir-$file_name")
+  local out_dir="dir-$file_name"
+  mk_dir "$out_dir"
+  
   tar -xf "$file_name"* -C "$out_dir"
   
   find . -type f -name "*$file_name*" -perm -111 -exec mv {} "/usr/local/bin/$file_name" \;
