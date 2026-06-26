@@ -54,7 +54,9 @@ _install_graphic() {
   cp_config 'i3'
   cp_config 'i3status'
 
-  local sddm_dir=$(mk_dir '/etc/sddm.conf.d')
+  local sddm_dir='/etc/sddm.conf.d'
+  mk_dir "$sddm_dir"
+  
   cat > "$sddm_dir/autologin.conf" << EOF
 [Autologin]
 User=$USERNAME
@@ -68,7 +70,8 @@ EOF
 
 _install_fonts() {
   # Install Hack Nerd Font
-  local nerd_fonts_dir=$(mk_dir '/usr/local/share/fonts/hack-nerd-font/')
+  local nerd_fonts_dir='/usr/local/share/fonts/hack-nerd-font/'
+  mk_dir "$nerd_fonts_dir"
   
   wget 'https://github.com/ryanoasis/nerd-fonts/releases/latest/download/Hack.zip'
   unzip Hack.zip -d "$nerd_fonts_dir"

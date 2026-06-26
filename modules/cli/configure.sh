@@ -12,7 +12,11 @@ if [[
 fi
 
 # Script params
-readonly CLI_CONFIGURE_DEPENDENCIES=('git' 'curl')
+readonly CLI_CONFIGURE_DEPENDENCIES=(
+  'sudo'
+  'git'
+  'curl'
+)
 
 # Imports
 source "$ROOT_DIR/lib/file.sh"
@@ -60,8 +64,8 @@ _configure_zsh() {
 
 _configure_starship() {
   local config_dir="$HOME/.config/starship"
-  mk_dir "$config_dir" > /dev/null
-  starship preset 'jetpack' -o "$config_dir/starship.toml"
+  mk_dir "$config_dir" && ch_own "$config_dir"
+  sudo -u "$USERNAME" starship preset 'jetpack' -o "$config_dir/starship.toml"
 }
 
 _configure_nvim() {

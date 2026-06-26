@@ -49,7 +49,7 @@ cp_config() {
     path="$path/$(basename $file)"
   fi
   
-  mk_dir $(dirname "$path") > /dev/null
+  mk_dir $(dirname "$path")
   if [[ -n "${DOTFILES_DIR:-}" ]]; then
     cp -r "$DOTFILES_DIR/$file" "$path"
   else
