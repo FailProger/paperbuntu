@@ -68,10 +68,8 @@ bindsym $mod+Shift+j move down
 bindsym $mod+Shift+k move up
 bindsym $mod+Shift+l move right
 
-# Split in horizontal orientation
-bindsym $mod+t split h
-
-# Split in vertical orientation
+# Split in horizontal/vertical orientation
+bindsym $mod+c split h
 bindsym $mod+v split v
 
 # Enter fullscreen mode for the focused container
@@ -80,6 +78,14 @@ bindsym $mod+f fullscreen toggle
 # Change container layout (tabbed, toggle split)
 bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
+
+# Switch focus and toggle floating window
+bindsym $mod+space floating toggle
+bindsym $mod+Tab focus mode_toggle
+
+# Move window to scratchpad
+bindsym $mod+m move scratchpad
+bindsym $mod+s scratchpad show
 
 # Switch to workspace
 bindsym $mod+1 workspace number $ws1
@@ -92,11 +98,6 @@ bindsym $mod+Shift+1 move container to workspace number $ws1
 bindsym $mod+Shift+2 move container to workspace number $ws2
 bindsym $mod+Shift+3 move container to workspace number $ws3
 bindsym $mod+Shift+4 move container to workspace number $ws4
-
-# Move window to scratchpad
-bindsym $mod+m move scratchpad
-bindsym $mod+Tab scratchpad show
-bindsym $mod+space floating toggle
 
 # Restart i3 inplace
 bindsym $mod+Shift+r restart
@@ -142,8 +143,10 @@ exec --no-startup-id dex --autostart --environment i3
 # Use loginctl lock-session to lock your screen.
 exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 
-# feh wallpaper togle
+# Wallpaper toggle
 exec --no-startup-id feh --bg-fill ~/.local/share/wallpapers/paperbuntu/nothing2-21x9.png
+# Wallpaper auto retoggle then resize window
+# exec --no-startup-id /usr/local/bin/resolution-fix.sh
 
 # Start tray GUI for NetworkManager
 exec --no-startup-id nm-applet
