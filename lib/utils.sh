@@ -11,7 +11,7 @@ cleanup_apt() {
   local return_code="${1:-0}"
   
   apt autoremove -y && apt autoclean -y
-  exit "$return_code"
+  [[ "$return_code" -eq 0 ]] || exit "$return_code"
 }
 
 wget_download() {

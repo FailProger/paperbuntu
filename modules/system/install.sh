@@ -4,6 +4,7 @@ set -eu
 
 if [[
   -z "${ROOT_DIR:-}" &&
+  -z "${DISK_NAME:-}" &&
   -z "${REPO_URL:-}"
 ]]; then
   echo "[ERROR] This is module. Please don't run it."
@@ -18,6 +19,9 @@ readonly SYS_BASE_PACKS=(
 )
 readonly SYS_USERS_PACKS=('network-manager')
 
+# Imports
+source "$ROOT_DIR/lib/system.sh"
+
 install_kernel() {
   # Install base
   apt update &&
@@ -25,12 +29,30 @@ install_kernel() {
 }
 
 instsall_bootloader() {
-  apt update && apt install -y grub-efi-amd64
+  apt update
+
+  if is_uefi; then
+    _install_grub_uefi
+  else
+    _install_grub_bios
+  fi
+  
+  update-grub
+}
+
+_install_grub_uefi() {
+  apt install -y grub-efi-amd64
   
   # Install grub
   local repo_name=${REPO_URL##*/}
-  grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id="${repo_name^}"
-  update-grub
+  grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id="${repo_name}"
+}
+
+_install_grub_bios() {
+  apt install -y grub-pc
+  
+  # Install grub
+  grub-install --target=i386-pc "/dev/$DISK_NAME"
 }
 
 install_users_packs() {

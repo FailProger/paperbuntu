@@ -20,6 +20,7 @@ if [[ -z "${REPO_URL:-}" ]]; then
   source "$ROOT_DIR/config/config.sh"
 fi
 source "$ROOT_DIR/lib/disk.sh"
+source "$ROOT_DIR/lib/system.sh"
 
 debootstrap_install_system() {
   # Install dependencies
@@ -27,34 +28,68 @@ debootstrap_install_system() {
     apt install -y ${DBS_DEPENDENCIES[@]}
 
   # Part and format disk
-  _part_disk && _format_disk
+  if is_uefi; then
+    _part_disk_uefi && _format_disk_uefi && _mount_disk_uefi
+  else
+    _part_disk_bios && _format_disk_bios && _mount_disk_bios
+  fi
 
-  # Mount disk
-  trap 'umount_disk 1' SIGINT SIGTERM && mount_disk "$DISK_NAME"
+  trap 'umount_disk 1' SIGINT SIGTERM
 
   # Install base system
   debootstrap --arch="$ARCH" --variant="$VARIANT" "$RELEASE" /mnt "$MIRROR"
 }
 
-_part_disk() {
-  # Get disk
+_part_disk_uefi() {
   local disk="/dev/$DISK_NAME"
 
   # Part disk
-  wipefs -fqa $disk
-  parted $disk mklabel gpt
-  parted $disk mkpart ESP fat32 1MiB 513MiB
-  parted $disk set 1 esp on
-  parted $disk mkpart root ext4 513MiB 100%
+  wipefs -fqa "$disk"
+  parted "$disk" mklabel gpt
+  parted "$disk" mkpart ESP fat32 1MiB 513MiB
+  parted "$disk" set 1 esp on
+  parted "$disk" mkpart root ext4 513MiB 100%
 }
 
-_format_disk() {
-  # Get partitions names
-  local disk_parts_names=$(get_disk_parts_names "$DISK_NAME")
-  local efi=$(cut -f 1 -d " " <<< "$disk_parts_names")
-  local root=$(cut -f 2 -d " " <<< "$disk_parts_names")
+_format_disk_uefi() {
+  local efi=$(get_disk_part_path "$DISK_NAME" '1')
+  local root=$(get_disk_part_path "$DISK_NAME" '2')
   
   # Format partitions
   mkfs.fat -F 32 "$efi"
   mkfs.ext4 -F "$root"
+}
+
+_mount_disk_uefi() {
+  local efi=$(get_disk_part_path "$DISK_NAME" '1')
+  local root=$(get_disk_part_path "$DISK_NAME" '2')
+
+  # Mount partitions
+  mount $root /mnt
+  mkdir -p /mnt/boot/efi
+  mount $efi /mnt/boot/efi
+}
+
+_part_disk_bios() {
+  local disk="/dev/$DISK_NAME"
+
+  # Part disk
+  wipefs -fqa "$disk"
+  parted "$disk" mklabel msdos
+  parted "$disk" mkpart primary ext4 1MiB 100%
+  parted "$disk" set 1 boot on
+}
+
+_format_disk_bios() {
+  local root=$(get_disk_part_path "$DISK_NAME" '1')
+  
+  # Format partitions
+  mkfs.ext4 -F "$root"
+}
+
+_mount_disk_bios() {
+  local root=$(get_disk_part_path "$DISK_NAME" '1')
+
+  # Mount partitions
+  mount $root /mnt
 }

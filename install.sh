@@ -28,6 +28,11 @@ OPTIONS:
         be selected first disk. You can see disks run:
         lsblk | grep disk.
   -y    Run install without asking the permission.
+
+EXAMPLES:
+  ./install.sh -y
+  ./install.sh -u 'paperbuntu' -p 'paperbuntu'
+  ./install.sh -d sda
 EOF
 }
 

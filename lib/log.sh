@@ -8,7 +8,7 @@ fi
 readonly LIB_LOG_LOADED=1
 
 log_error() {
-  local message="$1"
+  local message="${1:?'Dont get log message!'}"
   
   echo "[ERROR] $message" >&2
 }

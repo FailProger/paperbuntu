@@ -18,17 +18,12 @@ if [[ -z "${REPO_URL:-}" ]]; then
 fi
 source "$ROOT_DIR/lib/disk.sh"
 source "$ROOT_DIR/lib/file.sh"
+source "$ROOT_DIR/lib/system.sh"
 
 chroot_configure_system() {
   trap 'umount_disk 1' SIGINT SIGTERM
-  
-  # Mount system
-  mount --bind /dev /mnt/dev
-  mount --bind /dev/pts /mnt/dev/pts
-  mount -t proc proc /mnt/proc
-  mount -t sysfs sys /mnt/sys
-  mount --bind /sys/firmware/efi/efivars /mnt/sys/firmware/efi/efivars
-  cp /etc/resolv.conf /mnt/etc/resolv.conf
+
+  _mount_system
   
   # Copy repo
   local repo_dir="/mnt/tmp/${REPO_URL##*/}"
@@ -41,4 +36,16 @@ chroot_configure_system() {
   umount_disk
 
   reboot
+}
+
+_mount_system() {
+  # Mount system
+  mount --bind /dev /mnt/dev
+  mount --bind /dev/pts /mnt/dev/pts
+  mount -t proc proc /mnt/proc
+  mount -t sysfs sys /mnt/sys
+  # If UEFI
+  is_uefi && mount --bind /sys/firmware/efi/efivars /mnt/sys/firmware/efi/efivars
+  
+  cp /etc/resolv.conf /mnt/etc/resolv.conf
 }

@@ -21,6 +21,7 @@ if [[ -z "${REPO_URL:-}" ]]; then
 fi
 source "$ROOT_DIR/lib/disk.sh"
 source "$ROOT_DIR/lib/file.sh"
+source "$ROOT_DIR/lib/system.sh"
 
 configure_base() {
   # Configure locales and time
@@ -33,20 +34,29 @@ configure_base() {
   echo "$repo_name" > /etc/hostname
   echo "127.0.0.1 localhost $repo_name" > /etc/hosts
   
-  # Get partitions uuid
-  local disk_parts_names=$(get_disk_parts_names "$DISK_NAME")
-  local efi=$(cut -f 1 -d " " <<< "$disk_parts_names")
-  local root=$(cut -f 2 -d " " <<< "$disk_parts_names")
-  local efi_uuid=$(blkid -s UUID -o value "$efi")
-  local root_uuid=$(blkid -s UUID -o value "$root")
-  
-  # Configure fstab
-  cat > /etc/fstab << EOF
+  if is_uefi; then
+    local efi=$(get_disk_part_path "$DISK_NAME" '1')
+    local root=$(get_disk_part_path "$DISK_NAME" '2')
+    local efi_uuid=$(blkid -s UUID -o value "$efi")
+    local root_uuid=$(blkid -s UUID -o value "$root")
+
+    # Configure fstab
+    cat > /etc/fstab << EOF
 # $DISK_NAME - ESP
 UUID=$efi_uuid /boot/efi vfat umask=0077 0 1
 # $DISK_NAME - root partition
 UUID=$root_uuid / ext4 defaults 0 1
 EOF
+  else
+    local root=$(get_disk_part_path "$DISK_NAME" '1')
+    local root_uuid=$(blkid -s UUID -o value "$root")
+
+    # Configure fstab
+    cat > /etc/fstab << EOF
+# $DISK_NAME - root partition
+UUID=$root_uuid / ext4 defaults 0 1
+EOF
+  fi
 }
 
 add_user() {

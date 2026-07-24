@@ -27,7 +27,7 @@ mk_dir() {
 }
 
 ch_own() {
-  local file="${1:-'Dont get file name!'}"
+  local file="${1:?'Dont get file name!'}"
   local username="${USERNAME:-${2:?'Dont get username!'}}"
   
   chown -R "$username:$username" "$file"
