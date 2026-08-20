@@ -31,35 +31,18 @@ configure_all() {
   # Shell
   _configure_zsh; _configure_shellfirm; _configure_starship
   
-  # Development
-  _configure_nvim; _configure_git
-  
   # Files
-  _configure_eza; 
+  _configure_nvim; _configure_git; _configure_eza; 
 }
 
 _configure_zsh() {
   # Configure zsh
   chsh -s "$(which zsh)" "$USERNAME"
   
-  # Remove oh-my-zsh if exists
-  local omz_dir="$HOME/.oh-my-zsh"
-  [[ -d "$omz_dir" ]] && rm -r "$omz_dir"
-  
-  # Install oh my zsh
-  export RUNZSH='no'
-  sudo -u "$USERNAME" sh -c "$(curl -fsSL 'https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh')" "" --unattended
-  
-  # Install plugins
-  local omz_custom_dir="$omz_dir/custom"
-  git clone --depth 1 'https://github.com/zsh-users/zsh-autosuggestions' "$omz_custom_dir/plugins/zsh-autosuggestions"
-  git clone --depth 1 'https://github.com/zsh-users/zsh-syntax-highlighting.git' "$omz_custom_dir/plugins/zsh-syntax-highlighting"
-  
-  # Change own
-  ch_own "$omz_dir"
-  
   # Copy config files
+  cp_config 'zsh/zshenv' "$HOME/.zshenv"
   cp_config 'zsh/zshrc' "$HOME/.zshrc"
+  cp_config 'zsh/zsh_custom' "$HOME/.zsh_custom"
 }
 
 _configure_starship() {
@@ -83,3 +66,4 @@ _configure_eza() {
 _configure_shellfirm() {
   cp_config 'shellfirm'
 }
+

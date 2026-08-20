@@ -2,13 +2,17 @@
 
 set -eu
 
-if [[ -z "${ROOT_DIR:-}" ]]; then
+if [[
+  -z "${ROOT_DIR:-}" &&
+  -z "${USERNAME:-}"
+]]; then
   echo "[ERROR] This is module. Please don't run it."
   exit 1
 fi
 
 # Script params
 readonly CLI_INSTALL_DEPENDENCIES=(
+  'sudo'
   'wget'
   'gzip'
   'xz-utils'
@@ -38,13 +42,20 @@ install_all() {
   
   # Install other cli programms
   # Shell
-  _install_atuin; _install_shellfirm; _install_starship
+  _install_zinit; _install_atuin; _install_shellfirm; _install_starship
   
   # Files
   _install_nvim; _install_gdu; _install_eza; _install_fzf; _install_zoxide
   
   cd "$past_dir"
   rm -rf "$tmp_dir"
+}
+
+_install_zinit() {
+  sudo -u "$USERNAME" /usr/bin/bash -s << 'EOF'
+NO_INPUT=1 NO_ANNEXES=1 NO_EDIT=1 NO_TUTORIAL=1 \
+  bash -c "$(curl --fail --show-error --silent --location https://raw.githubusercontent.com/zdharma-continuum/zinit/HEAD/scripts/install.sh)"
+EOF
 }
 
 _install_nvim() {
@@ -127,3 +138,4 @@ _mv_to_bin() {
   
   rm -rf *"$file_name"*
 }
+

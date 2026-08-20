@@ -1,0 +1,54 @@
+# USER CONFIGURATION FILE
+
+# Preferred editor for remote and local sessions
+if [[ -n $SSH_CONNECTION ]]; then
+  # Remote session
+  export EDITOR='vim'
+else
+  # Local session
+  export EDITOR='nvim'
+fi
+
+# --- COMPLETION PARAMS ---
+zstyle ':completion:*:*:*:*:globbed-files' matcher 'r:|?=** m:{a-z\-}={A-Z\_}'
+zstyle ':completion:*:*:*:*:local-directories' matcher 'r:|?=** m:{a-z\-}={A-Z\_}'
+zstyle ':completion:*:*:*:*:directories' matcher 'r:|?=** m:{a-z\-}={A-Z\_}'
+
+# --- ALIASES ---
+alias snvim='sudo -E nvim'
+
+# --- CLI UTILS ---
+# Configure eza
+eza_params='-lbF --group-directories-first --no-time --smart-group --icons --git'
+
+alias ls="eza $eza_params"
+alias la="eza $eza_params -a"
+alias lss='ls --total-size'
+alias las='la --total-size'
+
+# Starship init
+export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
+eval "$(starship init zsh)"
+
+# Atuin init
+eval "$(atuin init zsh)"
+
+# Zoxide init
+zoxide_cmd='cd'
+eval "$(zoxide init zsh --cmd $zoxide_cmd)"
+
+# Shellfirm init
+eval "$(shellfirm init zsh)"
+
+# --- PENTEST TOOLS ---
+# Configure John the Ripper
+export PATH="$PATH:/opt/john-the-ripper"
+alias john='/opt/john-the-ripper/john'
+
+# Configure dirsearch
+alias dirsearch='/opt/dirsearch/.venv/bin/python /opt/dirsearch/dirsearch.py'
+
+# --- DEV TOOLS ---
+# Cargo
+source "$HOME/.cargo/env"
+
