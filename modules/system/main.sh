@@ -40,8 +40,8 @@ configure_system() {
   # Upgrade system
   apt update && apt upgrade -y
   
-  # Install user's packages
-  install_users_packs && configure_users_packs
+  # Install user packages
+  install_user_packs && configure_user_packs
   
   # Move repo
   local repo_name=${REPO_URL##*/}

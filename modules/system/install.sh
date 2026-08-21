@@ -13,11 +13,11 @@ fi
 
 # Script params
 readonly SYS_BASE_PACKS=(
-  'linux-image-generic'
-  'linux-headers-generic'
+  'linux-image-generic-hwe-24.04'
+  'linux-headers-generic-hwe-24.04'
   'sudo'
 )
-readonly SYS_USERS_PACKS=('network-manager')
+readonly SYS_USER_PACKS=('network-manager')
 
 # Imports
 source "$ROOT_DIR/lib/system.sh"
@@ -55,7 +55,7 @@ _install_grub_bios() {
   grub-install --target=i386-pc "/dev/$DISK_NAME"
 }
 
-install_users_packs() {
+install_user_packs() {
   apt update &&
-    apt install -y ${SYS_USERS_PACKS[@]}
+    apt install -y ${SYS_USER_PACKS[@]}
 }

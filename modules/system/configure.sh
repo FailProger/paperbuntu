@@ -13,7 +13,7 @@ if [[
 fi
 
 # Script params
-readonly SYS_CONFIGURE_DEPENDENCIES=("locales")
+readonly SYS_CONFIGURE_DEPENDENCIES=('locales')
 
 # Imports
 if [[ -z "${REPO_URL:-}" ]]; then
@@ -84,7 +84,7 @@ deb ${MIRROR//archive/security} $RELEASE-security main restricted universe multi
 EOF
 }
 
-configure_users_packs() {
+configure_user_packs() {
   # Configure Network Manager
   local netplan_dir='/etc/netplan'
   mk_dir "$netplan_dir"
