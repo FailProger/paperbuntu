@@ -48,6 +48,9 @@ alias john='/opt/john-the-ripper/john'
 # Configure dirsearch
 alias dirsearch='/opt/dirsearch/.venv/bin/python /opt/dirsearch/dirsearch.py'
 
+# nmap
+alias nmap='sudo nmap --min-rate 10000 --min-hostgroup 10000'
+
 # --- DEV TOOLS ---
 # Cargo
 source "$HOME/.cargo/env"

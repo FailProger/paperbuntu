@@ -1,10 +1,4 @@
-#!/usr/bin/env bash
-
-set -eu
-
-if [[ -n "${LIB_DISK_LOADED:-}" ]]; then
-  return 0
-fi
+if [[ -n "${LIB_DISK_LOADED:-}" ]]; then return 0; fi
 readonly LIB_DISK_LOADED=1
 
 # Global consts

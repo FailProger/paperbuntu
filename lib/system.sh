@@ -1,10 +1,4 @@
-#!/usr/bin/env bash
-
-set -eu
-
-if [[ -n "${LIB_SYSTEM_LOADED:-}" ]]; then
-  return 0
-fi
+if [[ -n "${LIB_SYSTEM_LOADED:-}" ]]; then return 0; fi
 readonly LIB_SYSTEM_LOADED=1
 
 is_uefi() {

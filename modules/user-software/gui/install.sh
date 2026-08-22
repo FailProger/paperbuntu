@@ -1,17 +1,5 @@
-#!/usr/bin/env bash
-
-set -eu
-
-if [[
-  -z "${ROOT_DIR:-}" &&
-  -z "${USERNAME:-}"
-]]; then
-  echo "[ERROR] This is module. Please don't run it."
-  exit 1
-fi
-
 # Script params
-readonly GUI_INSTALL_DEPENDENCIES=(
+readonly USER_SOFTWARE_GUI__INSTALL_DEPENDENCIES=(
   'sudo'
   'wget'
   'xz-utils'
@@ -26,18 +14,14 @@ readonly GUI_INSTALL_DEPENDENCIES=(
 # Imports
 source "$ROOT_DIR/lib/utils.sh"
 
-install_all() {
-  # Install dependencies
-  apt update &&
-    apt install -y ${GUI_INSTALL_DEPENDENCIES[@]}
-  
+user_software_gui__install_all() {
   # Create temp dir
   local past_dir=$(pwd)
   local tmp_dir=$(mktemp -d)
   cd "$tmp_dir"
   
   # Install gui programms
-  _install_alacritty; _install_zen_browser;
+  _install_alacritty; _install_zen_browser
   
   cd "$past_dir"
   rm -rf "$tmp_dir"
@@ -55,7 +39,9 @@ curl --proto '=https' --tlsv1.2 -sSf 'https://sh.rustup.rs' | sh -s -- -y
 export PATH="$PATH:$HOME/.cargo/bin"
 source "$HOME/.cargo/env"
 
-rustup override set stable && rustup update stable
+rustup override set stable
+rustup update stable
+
 cargo build --release
 EOF
 
@@ -89,3 +75,4 @@ EOF
 
   rm -rf *'zen'*
 }
+

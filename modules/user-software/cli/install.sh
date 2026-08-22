@@ -1,17 +1,5 @@
-#!/usr/bin/env bash
-
-set -eu
-
-if [[
-  -z "${ROOT_DIR:-}" &&
-  -z "${USERNAME:-}"
-]]; then
-  echo "[ERROR] This is module. Please don't run it."
-  exit 1
-fi
-
 # Script params
-readonly CLI_INSTALL_DEPENDENCIES=(
+readonly USER_SOFTWARE_CLI__INSTALL_DEPENDENCIES=(
   'sudo'
   'wget'
   'gzip'
@@ -20,7 +8,7 @@ readonly CLI_INSTALL_DEPENDENCIES=(
   'xclip'
   'jq'
 )
-readonly CLI_PACKS=(
+readonly USER_SOFTWARE_CLI__INSTALL_PACKAGES=(
   'openssh-client'
   'zsh'
 )
@@ -29,12 +17,7 @@ readonly CLI_PACKS=(
 source "$ROOT_DIR/lib/file.sh"
 source "$ROOT_DIR/lib/utils.sh"
 
-install_all() {
-  # Install dependencies and cli programms from apt
-  apt update &&
-    apt install -y ${CLI_INSTALL_DEPENDENCIES[@]} &&
-    apt install -y ${CLI_PACKS[@]}
-
+user_software_cli__install_all() {
   # Create temp dir
   local past_dir=$(pwd)
   local tmp_dir=$(mktemp -d)
@@ -71,40 +54,40 @@ _install_nvim() {
 
 _install_gdu() {
   wget_download 'https://github.com/dundee/gdu/releases/latest/download/gdu_linux_amd64.tgz'
-  _mv_to_bin 'gdu'
+  _user_software_cli__mv_to_bin 'gdu'
 }
 
 _install_eza() {
   wget_download 'https://github.com/eza-community/eza/releases/latest/download/eza_x86_64-unknown-linux-gnu.tar.gz'
-  _mv_to_bin 'eza'
+  _user_software_cli__mv_to_bin 'eza'
 }
 
 _install_fzf() {
-  _get_version_and_download 'https://api.github.com/repos/junegunn/fzf/releases/latest' 'fzf-.*-linux_amd64.tar.gz'
-  _mv_to_bin 'fzf'
+  _user_software_cli__get_version_and_download 'https://api.github.com/repos/junegunn/fzf/releases/latest' 'fzf-.*-linux_amd64.tar.gz'
+  _user_software_cli__mv_to_bin 'fzf'
 }
 
 _install_zoxide() {
-  _get_version_and_download 'https://api.github.com/repos/ajeetdsouza/zoxide/releases/latest' 'zoxide-.*-x86_64-unknown-linux-musl.tar.gz'
-  _mv_to_bin 'zoxide'
+  _user_software_cli__get_version_and_download 'https://api.github.com/repos/ajeetdsouza/zoxide/releases/latest' 'zoxide-.*-x86_64-unknown-linux-musl.tar.gz'
+  _user_software_cli__mv_to_bin 'zoxide'
 }
 
 _install_atuin() {
   wget_download 'https://github.com/atuinsh/atuin/releases/latest/download/atuin-x86_64-unknown-linux-gnu.tar.gz'
-  _mv_to_bin 'atuin'
+  _user_software_cli__mv_to_bin 'atuin'
 }
 
 _install_shellfirm() {
-  _get_version_and_download 'https://api.github.com/repos/kaplanelad/shellfirm/releases/latest' 'shellfirm-.*-x86_64-linux.tar.xz'
-  _mv_to_bin 'shellfirm'
+  _user_software_cli__get_version_and_download 'https://api.github.com/repos/kaplanelad/shellfirm/releases/latest' 'shellfirm-.*-x86_64-linux.tar.xz'
+  _user_software_cli__mv_to_bin 'shellfirm'
 }
 
 _install_starship() {
   wget_download 'https://github.com/starship/starship/releases/latest/download/starship-x86_64-unknown-linux-gnu.tar.gz'
-  _mv_to_bin 'starship'
+  _user_software_cli__mv_to_bin 'starship'
 }
 
-_get_version_and_download() {
+_user_software_cli__get_version_and_download() {
   local attempts=5
   local connect_timeout=5
   local read_timeout=5
@@ -126,7 +109,7 @@ _get_version_and_download() {
   return 1
 }
 
-_mv_to_bin() {
+_user_software_cli__mv_to_bin() {
   local file_name="${1:?'Dont get package name!'}"
 
   local out_dir="dir-$file_name"

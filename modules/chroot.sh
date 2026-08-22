@@ -1,44 +1,38 @@
-#!/usr/bin/env bash
-
-set -eu
-
-if [[
-  -z "${ROOT_DIR:-}" &&
-  -z "${USERNAME:-}" &&
-  -z "${PASSWORD:-}" &&
-  -z "${DISK_NAME:-}"
-]]; then
-  echo "[ERROR] This is module. Please don't run it."
-  exit 1
-fi
+# --- Need variables ---
+# ROOT_DIR
+# REPO_URL
+# DISK_NAME
+# USERNAME
+# PASSWORD
+ 
+if [[ -n "${MODULE_CHROOT_LOADED:-}" ]]; then return 0; fi
+readonly MODULE_CHROOT_LOADED=1
 
 # Imports
-if [[ -z "${REPO_URL:-}" ]]; then
-  source "$ROOT_DIR/config/config.sh"
-fi
 source "$ROOT_DIR/lib/disk.sh"
 source "$ROOT_DIR/lib/file.sh"
 source "$ROOT_DIR/lib/system.sh"
 
-chroot_configure_system() {
+chroot_setup() {
   trap 'umount_disk 1' SIGINT SIGTERM
 
-  _mount_system
+  _chroot__mount_system
   
   # Copy repo
   local repo_dir="/mnt/tmp/${REPO_URL##*/}"
   mk_dir "$repo_dir"
-  cp -r "$ROOT_DIR"/* "$repo_dir"
+  cp -r "$ROOT_DIR"/. "$repo_dir"
 
   # Configure system
-  chroot /mnt /bin/bash "${repo_dir#/mnt}/configure.sh" -u "$USERNAME" -p "$PASSWORD" -d "$DISK_NAME"
+  chroot /mnt /usr/bin/bash "${repo_dir#/mnt}/install.sh" setup -u "$USERNAME" -p "$PASSWORD" -d "$DISK_NAME" -y
+
+  rm -rf "$repo_dir"
 
   umount_disk
-
   reboot
 }
 
-_mount_system() {
+_chroot__mount_system() {
   # Mount system
   mount --bind /dev /mnt/dev
   mount --bind /dev/pts /mnt/dev/pts
@@ -49,3 +43,4 @@ _mount_system() {
   
   cp /etc/resolv.conf /mnt/etc/resolv.conf
 }
+

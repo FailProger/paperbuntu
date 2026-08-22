@@ -1,8 +1,8 @@
-#!/usr/bin/env bash
+if [[ -n "${CONFIG_LOADED:-}" ]]; then return 0; fi
+readonly CONFIG_LOADED=1
 
-set -eu
-
-# Scripts consts     WARN: Don't change
+# Scripts consts
+# WARN: Don't change
 readonly REPO_URL='https://github.com/FailProger/paperbuntu'
 readonly DOTFILES_DIR="$(dirname ${BASH_SOURCE[0]})/../dotfiles"
 
@@ -17,3 +17,4 @@ readonly VARIANT='minbase'
 
 # System params
 readonly LOCALE='en_US.UTF-8'
+

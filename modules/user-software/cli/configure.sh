@@ -1,18 +1,5 @@
-#!/usr/bin/env bash
-
-set -eu
-
-if [[
-  -z "${ROOT_DIR:-}" &&
-  -z "${USERNAME:-}" &&
-  -z "${HOME:-}"
-]]; then
-  echo "[ERROR] This is module. Please don't run it."
-  exit 1
-fi
-
 # Script params
-readonly CLI_CONFIGURE_DEPENDENCIES=(
+readonly USER_SOFTWARE_CLI__CONFIGURE_DEPENDENCIES=(
   'sudo'
   'git'
   'curl'
@@ -22,11 +9,7 @@ readonly CLI_CONFIGURE_DEPENDENCIES=(
 source "$ROOT_DIR/lib/file.sh"
 source "$ROOT_DIR/lib/user.sh"
 
-configure_all() {
-  # Install dependencies
-  apt update &&
-    apt install -y ${CLI_CONFIGURE_DEPENDENCIES[@]}
-  
+user_software_cli__configure_all() {
   # Configure all cli programms
   # Shell
   _configure_zsh; _configure_shellfirm; _configure_starship
@@ -47,7 +30,8 @@ _configure_zsh() {
 
 _configure_starship() {
   local config_dir="$HOME/.config/starship"
-  mk_dir "$config_dir" && ch_own "$config_dir"
+  mk_dir "$config_dir"
+  ch_own "$config_dir"
   sudo -u "$USERNAME" starship preset 'jetpack' -o "$config_dir/starship.toml"
 }
 

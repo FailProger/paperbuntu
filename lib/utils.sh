@@ -1,16 +1,10 @@
-#!/usr/bin/env bash
-
-set -eu
-
-if [[ -n "${LIB_UTILS_LOADED:-}" ]]; then
-  return 0
-fi
+if [[ -n "${LIB_UTILS_LOADED:-}" ]]; then return 0; fi
 readonly LIB_UTILS_LOADED=1
 
 cleanup_apt() {
   local return_code="${1:-0}"
   
-  apt autoremove -y && apt autoclean -y
+  apt autoremove -y; apt autoclean -y
   [[ "$return_code" -eq 0 ]] || exit "$return_code"
 }
 

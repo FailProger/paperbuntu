@@ -1,19 +1,10 @@
-#!/usr/bin/env bash
-
-set -eu
-
-if [[ -z "${ROOT_DIR:-}" ]]; then
-  echo "[ERROR] This is module. Please don't run it."
-  exit 1
-fi
-
 # Script params
-readonly GRAPHIC_INSTALL_DEPENDENCIES=(
+readonly USER_SOFTWARE_DESKTOP__INSTALL_DEPENDENCIES=(
   'wget'
   'zip'
   'unzip'
 )
-readonly GRAPHIC_PACKS=(
+readonly USER_SOFTWARE_DESKTOP__INSTALL_PACKAGES=(
   'xorg'
   'i3'
   'i3status'
@@ -27,25 +18,20 @@ readonly GRAPHIC_PACKS=(
 source "$ROOT_DIR/lib/user.sh"
 source "$ROOT_DIR/lib/utils.sh"
 
-install_all() {
-  # Install dependencies and graphic packs from apt
-  apt update &&
-    apt install -y ${GRAPHIC_INSTALL_DEPENDENCIES[@]} &&
-    apt install -y ${GRAPHIC_PACKS[@]}
-  
+user_software_desktop__install_all() {
   # Create temp dir
   local past_dir=$(pwd)
   local tmp_dir=$(mktemp -d)
   cd "$tmp_dir"
   
-  # Install other graphic packs
-  _install_fonts
+  # Install other desktop environment packs
+  _user_software_desktop__install_fonts
   
   cd "$past_dir"
   rm -rf "$tmp_dir"
 }
 
-_install_fonts() {
+_user_software_desktop__install_fonts() {
   # Install Hack Nerd Font
   local nerd_fonts_dir='/usr/local/share/fonts/hack-nerd-font/'
   mk_dir "$nerd_fonts_dir"

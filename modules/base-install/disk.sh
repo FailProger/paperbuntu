@@ -1,46 +1,25 @@
-#!/usr/bin/env bash
-
-set -eu
-
-if [[
-  -z "${ROOT_DIR:-}" &&
-  -z "${DISK_NAME:-}" &&
-  -z "${USERNAME:-}" &&
-  -z "${PASSWORD:-}"
-]]; then
-  echo "[ERROR] This is module. Please don't run it."
-  exit 1
-fi
-
 # Script params
-readonly DBS_DEPENDENCIES=("debootstrap" "parted" "zip" "unzip")
+readonly BASE_INSTALL__DISK_DEPENDENCIES=('parted')
 
 # Imports
-if [[ -z "${REPO_URL:-}" ]]; then
-  source "$ROOT_DIR/config/config.sh"
-fi
 source "$ROOT_DIR/lib/disk.sh"
 source "$ROOT_DIR/lib/system.sh"
 
-debootstrap_install_system() {
-  # Install dependencies
-  apt update &&
-    apt install -y ${DBS_DEPENDENCIES[@]}
-
-  # Part and format disk
+base_install__partition_disk() {
+  # Partition and format the disk
   if is_uefi; then
-    _part_disk_uefi && _format_disk_uefi && _mount_disk_uefi
+    _base_install__partition_uefi
+    _base_install__format_uefi
+    _base_install__mount_uefi
   else
-    _part_disk_bios && _format_disk_bios && _mount_disk_bios
+    _base_install__partition_bios
+    _base_install__format_bios
+    _base_install__mount_bios
   fi
-
-  trap 'umount_disk 1' SIGINT SIGTERM
-
-  # Install base system
-  debootstrap --arch="$ARCH" --variant="$VARIANT" "$RELEASE" /mnt "$MIRROR"
 }
 
-_part_disk_uefi() {
+# --- UEFI ---
+_base_install__partition_uefi() {
   local disk="/dev/$DISK_NAME"
 
   # Part disk
@@ -51,7 +30,7 @@ _part_disk_uefi() {
   parted "$disk" mkpart root ext4 513MiB 100%
 }
 
-_format_disk_uefi() {
+_base_install__format_uefi() {
   local efi=$(get_disk_part_path "$DISK_NAME" '1')
   local root=$(get_disk_part_path "$DISK_NAME" '2')
   
@@ -60,7 +39,7 @@ _format_disk_uefi() {
   mkfs.ext4 -F "$root"
 }
 
-_mount_disk_uefi() {
+_base_install__mount_uefi() {
   local efi=$(get_disk_part_path "$DISK_NAME" '1')
   local root=$(get_disk_part_path "$DISK_NAME" '2')
 
@@ -70,7 +49,8 @@ _mount_disk_uefi() {
   mount $efi /mnt/boot/efi
 }
 
-_part_disk_bios() {
+# --- BIOS ---
+_base_install__partition_bios() {
   local disk="/dev/$DISK_NAME"
 
   # Part disk
@@ -80,16 +60,17 @@ _part_disk_bios() {
   parted "$disk" set 1 boot on
 }
 
-_format_disk_bios() {
+_base_install__format_bios() {
   local root=$(get_disk_part_path "$DISK_NAME" '1')
   
   # Format partitions
   mkfs.ext4 -F "$root"
 }
 
-_mount_disk_bios() {
+_base_install__mount_bios() {
   local root=$(get_disk_part_path "$DISK_NAME" '1')
 
   # Mount partitions
   mount $root /mnt
 }
+
