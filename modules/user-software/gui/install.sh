@@ -23,6 +23,8 @@ user_software_gui__install_all() {
   # Install gui programms
   _install_alacritty; _install_zen_browser
   
+  normalize_local_bin
+  
   cd "$past_dir"
   rm -rf "$tmp_dir"
 }

@@ -26,3 +26,11 @@ ch_own() {
   
   chown -R "$username:$username" "$file"
 }
+
+normalize_local_bin() {
+  local bin='/usr/local/bin'
+
+  chown -R root:root "$bin"
+  find "$bin" -type f -exec chmod 755 {} +;
+}
+

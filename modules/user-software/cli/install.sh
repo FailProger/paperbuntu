@@ -29,6 +29,8 @@ user_software_cli__install_all() {
   
   # Files
   _install_nvim; _install_gdu; _install_eza; _install_fzf; _install_zoxide
+
+  normalize_local_bin
   
   cd "$past_dir"
   rm -rf "$tmp_dir"
