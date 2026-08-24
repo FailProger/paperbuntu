@@ -11,8 +11,13 @@ source "$ROOT_DIR/modules/user-software/gui/main.sh"
 source "$ROOT_DIR/modules/user-software/pentest/main.sh"
 
 command_software() {
-  local command="$1"
-  shift
+  # Check root user
+  if [[ $EUID -ne 0 ]]; then
+    log_error "Run this command as root."
+    exit 1
+  fi
+  
+  local command="$1"; shift
   
   local username=''
   local run_install=''

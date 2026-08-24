@@ -15,11 +15,14 @@ source "$ROOT_DIR/modules/user-software/gui/main.sh"
 source "$ROOT_DIR/modules/user-software/pentest/main.sh"
 
 command_full_or_setup() {
-  local command="$1"
-
-  if [[ "$command" == 'setup' || "$command" == 'full' ]]; then
-    shift
+  # Check root user
+  if [[ $EUID -ne 0 ]]; then
+    log_error "Run this command as root."
+    exit 1
   fi
+  
+  local command="$1"
+  if [[ "$command" == 'setup' || "$command" == 'full' ]]; then shift; fi
   
   local username=''
   local password=''
