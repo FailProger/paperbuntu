@@ -26,6 +26,8 @@ alias la="eza $eza_params -a"
 alias lss='ls --total-size'
 alias las='la --total-size'
 
+unset eza_params
+
 # Starship init
 export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
 eval "$(starship init zsh)"
@@ -37,19 +39,18 @@ eval "$(atuin init zsh)"
 zoxide_cmd='cd'
 eval "$(zoxide init zsh --cmd $zoxide_cmd)"
 
+unset zoxide_cmd
+
 # Shellfirm init
 eval "$(shellfirm init zsh)"
 
 # --- PENTEST TOOLS ---
 # Configure John the Ripper
 export PATH="$PATH:/opt/john-the-ripper"
-alias john='/opt/john-the-ripper/john'
-
-# Configure dirsearch
-alias dirsearch='/opt/dirsearch/.venv/bin/python /opt/dirsearch/dirsearch.py'
 
 # nmap
-alias nmap='sudo nmap --min-rate 10000 --min-hostgroup 10000'
+alias nmap='nmap --min-rate 10000 --min-hostgroup 10000'
+alias snmap='sudo nmap --min-rate 10000 --min-hostgroup 10000'
 
 # --- DEV TOOLS ---
 # Cargo

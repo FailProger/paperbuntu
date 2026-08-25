@@ -14,8 +14,11 @@ source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 # End of Zinit's installer chunk
+
+# --- COMPLETION SYSTEM ---
+autoload -Uz compinit && compinit -C
  
-# --- ZSH PLUGINS PARAMS ---
+# --- ZSH PLUGINS PARAMETERS ---
 # zsh-nvm
 export NVM_LAZY_LOAD=true
 export NVM_AUTO_USE=true
@@ -33,8 +36,7 @@ zinit ice wait lucid; zinit snippet OMZP::git
 zinit ice wait lucid; zinit snippet OMZP::python
 
 # Completions and suggestions
-zinit ice wait lucid atinit'ZINIT[COMPINIT_OPTS]=-C; zicompinit'
-zinit light zsh-users/zsh-completions
+zinit ice wait lucid; zinit light zsh-users/zsh-completions
 zinit ice wait lucid atload'_zsh_autosuggest_start'
 zinit light zsh-users/zsh-autosuggestions
 
@@ -45,6 +47,6 @@ zinit ice wait lucid; zinit light Aloxaf/fzf-tab
 zinit ice wait lucid
 zinit light zdharma-continuum/fast-syntax-highlighting
 
-# User configuration
+# --- USER CONFIGURATION ---
 source "$HOME/.zsh_custom"
 
