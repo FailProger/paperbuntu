@@ -3,14 +3,17 @@ readonly USER_SOFTWARE_CLI__INSTALL_DEPENDENCIES=(
   'sudo'
   'wget'
   'gzip'
-  'xz-utils'
   'build-essential'
-  'xclip'
-  'jq'
 )
 readonly USER_SOFTWARE_CLI__INSTALL_PACKAGES=(
   'openssh-client'
   'zsh'
+  'git'
+  '7zip'
+  'xz-utils'
+  'zstd'
+  'xclip'
+  'jq'
 )
 
 # Imports
@@ -65,12 +68,12 @@ _install_eza() {
 }
 
 _install_fzf() {
-  _user_software_cli__get_version_and_download 'https://api.github.com/repos/junegunn/fzf/releases/latest' 'fzf-.*-linux_amd64.tar.gz'
+  wget_version_and_download 'https://api.github.com/repos/junegunn/fzf/releases/latest' 'fzf-.*-linux_amd64.tar.gz'
   _user_software_cli__mv_to_bin 'fzf'
 }
 
 _install_zoxide() {
-  _user_software_cli__get_version_and_download 'https://api.github.com/repos/ajeetdsouza/zoxide/releases/latest' 'zoxide-.*-x86_64-unknown-linux-musl.tar.gz'
+  wget_version_and_download 'https://api.github.com/repos/ajeetdsouza/zoxide/releases/latest' 'zoxide-.*-x86_64-unknown-linux-musl.tar.gz'
   _user_software_cli__mv_to_bin 'zoxide'
 }
 
@@ -80,35 +83,13 @@ _install_atuin() {
 }
 
 _install_shellfirm() {
-  _user_software_cli__get_version_and_download 'https://api.github.com/repos/kaplanelad/shellfirm/releases/latest' 'shellfirm-.*-x86_64-linux.tar.xz'
+  wget_version_and_download 'https://api.github.com/repos/kaplanelad/shellfirm/releases/latest' 'shellfirm-.*-x86_64-linux.tar.xz'
   _user_software_cli__mv_to_bin 'shellfirm'
 }
 
 _install_starship() {
   wget_download 'https://github.com/starship/starship/releases/latest/download/starship-x86_64-unknown-linux-gnu.tar.gz'
   _user_software_cli__mv_to_bin 'starship'
-}
-
-_user_software_cli__get_version_and_download() {
-  local attempts=5
-  local connect_timeout=5
-  local read_timeout=5
-  local between_timeout=2
-  
-  local repo_url="${1:?'Dont get repo url!'}"
-  local file_name="${2:?'Dont get file name!'}"
-  
-  for (( i=0; i < "$attempts"; i++ )); do
-    if wget -qO- --connect-timeout="$connect_timeout" --read-timeout="$read_timeout" "$repo_url" \
-      | jq -r ".assets[] | select(.name | test(\"$file_name\")) | .browser_download_url" \
-      | xargs wget --connect-timeout="$connect_timeout" --read-timeout="$read_timeout"; then
-      return 0
-    fi
-
-    sleep "$between_timeout"
-  done
-
-  return 1
 }
 
 _user_software_cli__mv_to_bin() {
