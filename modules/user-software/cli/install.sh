@@ -3,17 +3,16 @@ readonly USER_SOFTWARE_CLI__INSTALL_DEPENDENCIES=(
   'sudo'
   'wget'
   'gzip'
-  'build-essential'
 )
 readonly USER_SOFTWARE_CLI__INSTALL_PACKAGES=(
-  'openssh-client'
   'zsh'
+  'openssh-client'
   'git'
+  'curl'
   '7zip'
   'xz-utils'
   'zstd'
   'xclip'
-  'jq'
 )
 
 # Imports
@@ -68,12 +67,12 @@ _install_eza() {
 }
 
 _install_fzf() {
-  wget_version_and_download 'https://api.github.com/repos/junegunn/fzf/releases/latest' 'fzf-.*-linux_amd64.tar.gz'
+  wget_github_repo_download_latest 'junegunn/fzf'
   _user_software_cli__mv_to_bin 'fzf'
 }
 
 _install_zoxide() {
-  wget_version_and_download 'https://api.github.com/repos/ajeetdsouza/zoxide/releases/latest' 'zoxide-.*-x86_64-unknown-linux-musl.tar.gz'
+  wget_github_repo_download_latest 'ajeetdsouza/zoxide'
   _user_software_cli__mv_to_bin 'zoxide'
 }
 
@@ -83,7 +82,7 @@ _install_atuin() {
 }
 
 _install_shellfirm() {
-  wget_version_and_download 'https://api.github.com/repos/kaplanelad/shellfirm/releases/latest' 'shellfirm-.*-x86_64-linux.tar.xz'
+  wget_github_repo_download_latest 'kaplanelad/shellfirm'
   _user_software_cli__mv_to_bin 'shellfirm'
 }
 

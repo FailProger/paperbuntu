@@ -1,7 +1,6 @@
 # Script params
 readonly USER_SOFTWARE_DESKTOP__INSTALL_DEPENDENCIES=(
   'wget'
-  'zip'
   'unzip'
 )
 readonly USER_SOFTWARE_DESKTOP__INSTALL_PACKAGES=(
@@ -45,3 +44,4 @@ _user_software_desktop__install_fonts() {
   chmod -R 644 "$nerd_fonts_dir"/*
   chmod 755 "$nerd_fonts_dir"
 }
+

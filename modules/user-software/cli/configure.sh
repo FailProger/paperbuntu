@@ -1,8 +1,6 @@
 # Script params
 readonly USER_SOFTWARE_CLI__CONFIGURE_DEPENDENCIES=(
   'sudo'
-  'git'
-  'curl'
 )
 
 # Imports

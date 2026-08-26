@@ -1,5 +1,8 @@
 # Script params
-readonly USER_SOFTWARE_DESKTOP__CONFIGURE_DEPENDENCIES=('fontconfig')
+readonly USER_SOFTWARE_DESKTOP__CONFIGURE_DEPENDENCIES=(
+  'sudo'
+  'fontconfig'
+)
 
 # Imports
 source "$ROOT_DIR/lib/file.sh"
