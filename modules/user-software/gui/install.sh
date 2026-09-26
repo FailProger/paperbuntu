@@ -82,38 +82,38 @@ EOF
   rm 'zen'*
 }
 
-_install_librewolf() {
-  apt install -y extrepo
-  extrepo enable librewolf && extrepo update librewolf
-  
-  apt update && apt install -y librewolf
-}
+# _install_librewolf() {
+#   apt install -y extrepo
+#   extrepo enable librewolf && extrepo update librewolf
+#
+#   apt update && apt install -y librewolf
+# }
 
-_install_waterfox() {
-  local latest_version=$(wget_github_repo_latest_version 'BrowserWorks/Waterfox')
-  wget_download "https://cdn1.waterfox.net/waterfox/releases/$latest_version/Linux_x86_64/waterfox-$latest_version.tar.bz2"
-  
-  mk_dir /opt
-  tar -xf 'waterfox'* -C /opt
-  ln -s /opt/waterfox/waterfox /usr/local/bin/waterfox
-
-  cat > /usr/local/share/applications/waterfox.desktop << EOF
-[Desktop Entry]
-Version=1.0
-Name=Waterfox
-Comment=Privacy-focused browser
-GenericName=Web Browser
-Keywords=Internet;WWW;Browser;Web;Explorer
-Exec=waterfox
-Terminal=false
-X-MultipleArgs=false
-Type=Application
-Icon=/opt/waterfox/browser/chrome/icons/default/default128.png
-Categories=Network;WebBrowser;
-MimeType=text/html;text/xml;application/xhtml+xml;application/xml;application/rss+xml;application/rdf+xml;image/gif;image/jpeg;image/png;x-scheme-handler/http;x-scheme-handler/https;x-scheme-handler/ftp;x-scheme-handler/chrome;video/webm;application/x-xpinstall;
-StartupNotify=true
-EOF
-
-  rm 'waterfox'*
-}
+# _install_waterfox() {
+#   local latest_version=$(wget_github_repo_latest_version 'BrowserWorks/Waterfox')
+#   wget_download "https://cdn1.waterfox.net/waterfox/releases/$latest_version/Linux_x86_64/waterfox-$latest_version.tar.bz2"
+#
+#   mk_dir /opt
+#   tar -xf 'waterfox'* -C /opt
+#   ln -s /opt/waterfox/waterfox /usr/local/bin/waterfox
+#
+#   cat > /usr/local/share/applications/waterfox.desktop << EOF
+# [Desktop Entry]
+# Version=1.0
+# Name=Waterfox
+# Comment=Privacy-focused browser
+# GenericName=Web Browser
+# Keywords=Internet;WWW;Browser;Web;Explorer
+# Exec=waterfox
+# Terminal=false
+# X-MultipleArgs=false
+# Type=Application
+# Icon=/opt/waterfox/browser/chrome/icons/default/default128.png
+# Categories=Network;WebBrowser;
+# MimeType=text/html;text/xml;application/xhtml+xml;application/xml;application/rss+xml;application/rdf+xml;image/gif;image/jpeg;image/png;x-scheme-handler/http;x-scheme-handler/https;x-scheme-handler/ftp;x-scheme-handler/chrome;video/webm;application/x-xpinstall;
+# StartupNotify=true
+# EOF
+#
+#   rm 'waterfox'*
+# }
 

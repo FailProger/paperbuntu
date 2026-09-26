@@ -1,38 +1,20 @@
-# i3 config file (v4)
-#
-# Please see https://i3wm.org/docs/userguide.html for a complete reference!
+# i3 CONFIG FILE (v4)
 
 # --- VARIABLES ---
-# =================
-
 # Mod key
 set $mod Mod4
 
-# Define names for default workspaces
-set $ws1 "1"
-set $ws2 "2"
-set $ws3 "3"
-set $ws4 "4"
-
-
 # --- VISUAL ---
-# ==============
-
 # Font for window titles
 font pango:Hack Nerd Fonts 8
 
 # Window border (disable titles)
-default_border pixel 2
+default_border pixel 0
 
 # Gaps betten windows
 gaps inner 5
-# Addition gaps out of display
-gaps outer 5
-
 
 # --- BINDS ---
-# =============
-
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
@@ -68,9 +50,9 @@ bindsym $mod+Shift+j move down
 bindsym $mod+Shift+k move up
 bindsym $mod+Shift+l move right
 
-# Split in horizontal/vertical orientation
-bindsym $mod+c split h
-bindsym $mod+v split v
+# Split in horizontal/vertical orientation by window position
+bindsym $mod+Shift+backslash split h
+bindsym $mod+backslash split v
 
 # Enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
@@ -87,27 +69,12 @@ bindsym $mod+Tab focus mode_toggle
 bindsym $mod+m move scratchpad
 bindsym $mod+s scratchpad show
 
-# Switch to workspace
-bindsym $mod+1 workspace number $ws1
-bindsym $mod+2 workspace number $ws2
-bindsym $mod+3 workspace number $ws3
-bindsym $mod+4 workspace number $ws4
-
-# Move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace number $ws1
-bindsym $mod+Shift+2 move container to workspace number $ws2
-bindsym $mod+Shift+3 move container to workspace number $ws3
-bindsym $mod+Shift+4 move container to workspace number $ws4
-
 # Restart i3 inplace
 bindsym $mod+Shift+r restart
 # Exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
 
-
 # --- MODS ---
-# ============
-
 # Resize window (you can also use the mouse for that)
 mode "resize" {
         # These bindings trigger as soon as you enter the resize mode
@@ -129,29 +96,28 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-
 # --- AUTOSTART ---
-# =================
-
 # X11 settings
-exec --no-startup-id xset r rate 200 40
-exec --no-startup-id setxkbmap -model pc104 -layout us,ru -variant ,typo -option grp:toggle,lv3:caps_switch_capslock_with_ctrl
+exec_always --no-startup-id xset r rate 200 40
+exec_always --no-startup-id setxkbmap -model pc104 -layout us,ru -variant ,typo -option grp:toggle,lv3:caps_switch_capslock_with_ctrl
 
 # Start XDG autostart .desktop files using dex
-exec --no-startup-id dex --autostart --environment i3
+exec_always --no-startup-id dex --autostart --environment i3
 
 # Use loginctl lock-session to lock your screen.
-exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+exec_always --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 
-# Wallpaper toggle
-exec --no-startup-id feh --bg-fill ~/.local/share/wallpapers/paperbuntu/nothing2-21x9.png
-# Wallpaper auto retoggle then resize window
-# exec --no-startup-id /usr/local/bin/resolution-fix.sh
+# Start picom
+exec_always --no-startup-id picom -b
 
-# Start tray GUI for NetworkManager
-exec --no-startup-id nm-applet
+# polybar toggle
+exec_always --no-startup-id ~/.config/polybar/launch.sh
 
-# Start i3status
-bar {
-        status_command i3status
-}
+# feh wallpaper toggle
+exec_always --no-startup-id ~/.fehbg
+# feh wallpaper auto retoggle then resize window
+# exec_always --no-startup-id /usr/local/bin/resolution-fix.sh
+
+# Change home permissions for better security
+# exec_always --no-startup-id /usr/local/bin/safe-home-permissions.sh
+

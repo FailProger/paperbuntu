@@ -12,6 +12,7 @@ user_software_desktop__configure_all() {
   # Configure all desktop environment packs
   # Desktop
   _user_software_desktop__configure_windows_manager
+  _user_software_desktop__configure_visual_compouser
   _user_software_desktop__configure_statusbar
   _user_software_desktop__configure_wallpaper
   
@@ -27,8 +28,12 @@ _user_software_desktop__configure_windows_manager() {
   cp_config 'i3'
 }
 
+_user_software_desktop__configure_visual_compouser() {
+  cp_config 'picom'
+}
+
 _user_software_desktop__configure_statusbar() {
-  cp_config 'i3status'
+  cp_config 'polybar'
 }
 
 _user_software_desktop__configure_wallpaper() {
@@ -36,6 +41,7 @@ _user_software_desktop__configure_wallpaper() {
   sudo -u "$USERNAME" mkdir -p "$wp_dir"
   
   cp_config 'wallpapers' "$wp_dir/${REPO_URL##*/}"
+  cp_config 'feh/fehbg' "$HOME/.fehbg"
   
   find "$wp_dir" -type d -exec chmod 755 {} +
   find "$wp_dir" -type f -exec chmod 644 {} +

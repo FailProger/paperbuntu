@@ -1,0 +1,2 @@
+#!/bin/sh
+feh --no-fehbg --bg-fill '/home/programmer/.local/share/wallpapers/paperbuntu/nothing2-21x9.png' 

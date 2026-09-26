@@ -1,4 +1,4 @@
-# USER CONFIGURATION FILE
+# CUSTOM zsh CONFIG FILE
 
 # Preferred editor for remote and local sessions
 if [[ -n $SSH_CONNECTION ]]; then
@@ -47,10 +47,10 @@ eval "$(shellfirm init zsh)"
 # --- PENTEST TOOLS ---
 # Configure John the Ripper
 export PATH="$PATH:/opt/john-the-ripper"
+alias sjohn='sudo john'
 
 # nmap
-alias nmap='nmap --min-rate 10000 --min-hostgroup 10000'
-alias snmap='sudo nmap --min-rate 10000 --min-hostgroup 10000'
+alias snmap='sudo nmap --min-rate 2500 --min-hostgroup 2500'
 
 # --- DEV TOOLS ---
 # Cargo

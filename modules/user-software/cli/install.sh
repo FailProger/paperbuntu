@@ -6,6 +6,7 @@ readonly USER_SOFTWARE_CLI__INSTALL_DEPENDENCIES=(
 )
 readonly USER_SOFTWARE_CLI__INSTALL_PACKAGES=(
   'zsh'
+  'tmux'
   'openssh-client'
   'git'
   'curl'

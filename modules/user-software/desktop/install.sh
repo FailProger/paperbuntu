@@ -6,7 +6,8 @@ readonly USER_SOFTWARE_DESKTOP__INSTALL_DEPENDENCIES=(
 readonly USER_SOFTWARE_DESKTOP__INSTALL_PACKAGES=(
   'xorg'
   'i3'
-  'i3status'
+  'polybar'
+  'picom'
   'dmenu'
   'j4-dmenu-desktop'
   'feh'

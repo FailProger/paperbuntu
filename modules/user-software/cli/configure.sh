@@ -10,7 +10,7 @@ source "$ROOT_DIR/lib/user.sh"
 user_software_cli__configure_all() {
   # Configure all cli programms
   # Shell
-  _configure_zsh; _configure_shellfirm; _configure_starship
+  _configure_zsh; _configure_tmux; _configure_shellfirm; _configure_starship
   
   # Files
   _configure_nvim; _configure_git; _configure_eza; 
@@ -24,6 +24,10 @@ _configure_zsh() {
   cp_config 'zsh/zshenv' "$HOME/.zshenv"
   cp_config 'zsh/zshrc' "$HOME/.zshrc"
   cp_config 'zsh/zsh_custom' "$HOME/.zsh_custom"
+}
+
+_configure_tmux() {
+  cp_config 'tmux/tmux.conf' "$HOME/.tmux.conf"
 }
 
 _configure_starship() {
