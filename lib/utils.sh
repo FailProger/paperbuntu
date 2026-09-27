@@ -30,12 +30,14 @@ wget_download() {
 
 wget_github_repo_download_latest() {
   local repo="${1:?'Do not get repo!'}"
+  local file_name="${2:?'Do not get file name!'}"
   local download_url=''
   
   for (( i=0; i < "$LIB_UTILS__ATTEMPTS"; i++ )); do
     download_url=$(
-      wget -qO- --connect-timeout="$LIB_UTILS__CONNECT_TIMEOUT" --read-timeout="$LIB_UTILS__READ_TIMEOUT" "https://api.github.com/repos/$repo/releases/latest" |
-        grep -oP '"browser_download_url":\s*"\K[^"]+'
+      wget -qO- --connect-timeout="$LIB_UTILS__CONNECT_TIMEOUT" --read-timeout="$LIB_UTILS__READ_TIMEOUT" "https://api.github.com/repos/$repo/releases/latest" \
+        | grep -oP '"browser_download_url":\s*"\K[^"]+' \
+        | grep "$file_name"
     )
     
     if [[ -n "$download_url" ]]; then
@@ -55,8 +57,8 @@ wget_github_repo_latest_version() {
   
   for (( i=0; i < "$LIB_UTILS__ATTEMPTS"; i++ )); do
     version=$(
-      wget -qO- --connect-timeout="$LIB_UTILS__CONNECT_TIMEOUT" --read-timeout="$LIB_UTILS__READ_TIMEOUT" "https://api.github.com/repos/$repo/releases/latest" |
-        grep -oP '"tag_name":\s*"\K[^"]+'
+      wget -qO- --connect-timeout="$LIB_UTILS__CONNECT_TIMEOUT" --read-timeout="$LIB_UTILS__READ_TIMEOUT" "https://api.github.com/repos/$repo/releases/latest" \
+        | grep -oP '"tag_name":\s*"\K[^"]+'
     )
       
     if [[ -n "$version" ]]; then

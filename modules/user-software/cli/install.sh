@@ -31,7 +31,8 @@ user_software_cli__install_all() {
   _install_zinit; _install_atuin; _install_shellfirm; _install_starship
   
   # Files
-  _install_nvim; _install_gdu; _install_eza; _install_fzf; _install_zoxide
+  _install_nvim; _install_bat
+  _install_gdu; _install_eza; _install_fzf; _install_zoxide
 
   normalize_local_bin
   
@@ -57,6 +58,11 @@ _install_nvim() {
   rm -rf *'nvim'*
 }
 
+_install_bat() {
+  wget_github_repo_download_latest 'sharkdp/bat' 'bat_.*_amd64.deb'
+  apt install ./bat_*_amd64.deb
+}
+
 _install_gdu() {
   wget_download 'https://github.com/dundee/gdu/releases/latest/download/gdu_linux_amd64.tgz'
   _user_software_cli__mv_to_bin 'gdu'
@@ -68,12 +74,12 @@ _install_eza() {
 }
 
 _install_fzf() {
-  wget_github_repo_download_latest 'junegunn/fzf'
+  wget_github_repo_download_latest 'junegunn/fzf' 'fzf-.*-linux_amd64.tar.gz'
   _user_software_cli__mv_to_bin 'fzf'
 }
 
 _install_zoxide() {
-  wget_github_repo_download_latest 'ajeetdsouza/zoxide'
+  wget_github_repo_download_latest 'ajeetdsouza/zoxide' 'zoxide-.*-x86_64-unknown-linux-musl.tar.gz'
   _user_software_cli__mv_to_bin 'zoxide'
 }
 
@@ -83,7 +89,7 @@ _install_atuin() {
 }
 
 _install_shellfirm() {
-  wget_github_repo_download_latest 'kaplanelad/shellfirm'
+  wget_github_repo_download_latest 'kaplanelad/shellfirm' 'shellfirm-.*-x86_64-linux.tar.xz'
   _user_software_cli__mv_to_bin 'shellfirm'
 }
 
