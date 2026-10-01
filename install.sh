@@ -3,14 +3,11 @@
 set -euo pipefail
 
 # Global consts
-readonly ROOT_DIR=$(dirname "$0")
+readonly ROOT_DIR=$(dirname "${BASH_SOURCE[0]}")
 
 # Imports
-source "$ROOT_DIR/config/config.sh"
-source "$ROOT_DIR/lib/log.sh"
-
-source "$ROOT_DIR/commands/full-or-setup.sh"
-source "$ROOT_DIR/commands/software.sh"
+source "$ROOT_DIR/config.sh"
+source "$ROOT_DIR/modules/imports.sh"
 
 _usage() {
   cat << EOF
@@ -31,9 +28,9 @@ COMMANDS:
 OPTIONS:
   -h        This help message.
   -u        User who will be created in new system. If not getted
-            will be used default username from $ROOT_DIR/config.
+            will be used default username from ./config.sh.
   -p        Password for user in new system. If not getted will be
-            used default password from $ROOT_DIR/config.
+            used default password from ./config.sh.
   -d        Disk name for system installation. If not getted will
             be selected first disk. You can see disks run:
             lsblk | grep disk.

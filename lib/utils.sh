@@ -1,6 +1,3 @@
-if [[ -n "${LIB_UTILS_LOADED:-}" ]]; then return 0; fi
-readonly LIB_UTILS_LOADED=1
-
 # Global consts
 readonly LIB_UTILS__ATTEMPTS=5
 readonly LIB_UTILS__CONNECT_TIMEOUT=5

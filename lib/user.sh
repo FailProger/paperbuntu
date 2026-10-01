@@ -1,15 +1,3 @@
-if [[ -n "${LIB_USER_LOADED:-}" ]]; then return 0; fi
-readonly LIB_USER_LOADED=1
-
-# Global consts
-if [[ -z "${LIB_DIR:-}" ]]; then
-  readonly LIB_DIR="$(dirname ${BASH_SOURCE[0]})"
-fi
-
-# Imports
-source "$LIB_DIR/log.sh"
-source "$LIB_DIR/file.sh"
-
 get_user() {
   local users="$(ls /home)"
   local users_count=$(wc -l <<< "$users")
