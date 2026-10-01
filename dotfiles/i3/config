@@ -99,7 +99,7 @@ bindsym $mod+r mode "resize"
 # --- AUTOSTART ---
 # X11 settings
 exec_always --no-startup-id xset r rate 200 40
-exec_always --no-startup-id setxkbmap -model pc104 -layout us,ru -variant ,typo -option grp:toggle,lv3:caps_switch_capslock_with_ctrl
+exec_always --no-startup-id setxkbmap -layout 'us,ru' -variant ',typo' -option 'grp:toggle,lv3:caps_switch'
 
 # Start XDG autostart .desktop files using dex
 exec_always --no-startup-id dex --autostart --environment i3
