@@ -1,1 +1,3 @@
+# zshenv CONFIG FILE
+
 skip_global_compinit=1

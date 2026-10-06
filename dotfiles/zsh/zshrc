@@ -1,3 +1,5 @@
+# zshrc CONFIG FILE
+
 # Umask
 umask 022
 
@@ -32,7 +34,6 @@ export PYTHON_VENV_NAME='.venv'
 zinit ice wait lucid; zinit light lukechilds/zsh-nvm
 
 # Oh My Zsh plugins
-zinit ice wait lucid; zinit snippet OMZP::git
 zinit ice wait lucid; zinit snippet OMZP::python
 
 # Completions and suggestions
@@ -47,6 +48,6 @@ zinit ice wait lucid; zinit light Aloxaf/fzf-tab
 zinit ice wait lucid
 zinit light zdharma-continuum/fast-syntax-highlighting
 
-# --- USER CONFIGURATION ---
+# --- CUSTOM ZSH CONFIGURATION ---
 source "$HOME/.zsh_custom"
 

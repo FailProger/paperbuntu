@@ -3,14 +3,11 @@
 set -euo pipefail
 
 # Global consts
-readonly ROOT_DIR=$(dirname "$0")
+readonly ROOT_DIR=$(dirname "${BASH_SOURCE[0]}")
 
 # Imports
-source "$ROOT_DIR/config/config.sh"
-source "$ROOT_DIR/lib/log.sh"
-
-source "$ROOT_DIR/commands/full-or-setup.sh"
-source "$ROOT_DIR/commands/software.sh"
+source "$ROOT_DIR/config.sh"
+source "$ROOT_DIR/modules/imports.sh"
 
 _usage() {
   cat << EOF
@@ -24,16 +21,16 @@ COMMANDS:
   desktop   Install desktop environment for system and setup it.
   cli       Install CLI programms and setup them.
   gui       Install GUI programms and setup them.
-  pentest   Install pentest tools and setup them.
+  infosec   Install infosec tools and setup them.
 
   If do not get COMMAND but get all options will be used full themod.
 
 OPTIONS:
   -h        This help message.
   -u        User who will be created in new system. If not getted
-            will be used default username from $ROOT_DIR/config.
+            will be used default username from ./config.sh.
   -p        Password for user in new system. If not getted will be
-            used default password from $ROOT_DIR/config.
+            used default password from ./config.sh.
   -d        Disk name for system installation. If not getted will
             be selected first disk. You can see disks run:
             lsblk | grep disk.
@@ -54,7 +51,7 @@ main() {
     -h)
       _usage; exit 0
       ;;
-    software|desktop|cli|gui|pentest)
+    software|desktop|cli|gui|infosec)
       command_software $@
       ;;
     -?|full|setup)

@@ -1,14 +1,3 @@
-if [[ -n "${LIB_DISK_LOADED:-}" ]]; then return 0; fi
-readonly LIB_DISK_LOADED=1
-
-# Global consts
-if [[ -z "${LIB_DIR:-}" ]]; then
-  readonly LIB_DIR="$(dirname ${BASH_SOURCE[0]})"
-fi
-
-# Imports
-source "$LIB_DIR/log.sh"
-
 get_disk_name() {
   local disks_name="$(lsblk -l | grep disk | cut -f 1 -d ' ')"
   
