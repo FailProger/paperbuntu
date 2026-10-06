@@ -15,6 +15,7 @@ zstyle ':completion:*:*:*:*:local-directories' matcher 'r:|?=** m:{a-z\-}={A-Z\_
 zstyle ':completion:*:*:*:*:directories' matcher 'r:|?=** m:{a-z\-}={A-Z\_}'
 
 # --- ALIASES ---
+alias str='sudo -E -s'  # Switch To Root
 alias snvim='sudo -E nvim'
 
 # --- CLI UTILS ---
