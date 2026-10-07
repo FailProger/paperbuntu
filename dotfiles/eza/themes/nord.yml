@@ -42,10 +42,10 @@ size:
 users:
   user_you: {foreground: "#B48EAD", is_bold: false}
   user_root: {foreground: "#BF616A", is_bold: true}
-  user_other: {foreground: "#4C566A", is_dimmed: true}
-  group_yours: {foreground: "#4C566A"}
-  group_root: {foreground: "#BF616A", is_bold: true}
-  group_other: {foreground: "#4C566A", is_dimmed: true}
+  user_other: {foreground: "#4C566A"}
+  group_yours: {foreground: "#B48EAD", is_bold: false, is_dimmed: true}
+  group_root: {foreground: "#BF616A", is_bold: true, is_dimmed: true}
+  group_other: {foreground: "#4C566A"}
 
 links:
   normal: {foreground: "#81A1C1"}
