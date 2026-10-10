@@ -17,6 +17,7 @@ zstyle ':completion:*:*:*:*:directories' matcher 'r:|?=** m:{a-z\-}={A-Z\_}'
 # --- ALIASES ---
 alias str='sudo -E -s'  # Switch To Root
 alias snvim='sudo -E nvim'
+alias feh='feh --scale-down'
 
 # --- CLI UTILS ---
 # Configure eza
