@@ -16,6 +16,8 @@ _configure_alacritty() {
 
 _configure_zen_browser() {
   # Configure Zen Browser
+  chmod 755 /opt/zen/zen
+  mk_dir /usr/local/bin
   ln -s /opt/zen/zen /usr/local/bin/zen
 
   local applications_dir='/usr/local/share/applications'

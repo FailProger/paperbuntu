@@ -23,6 +23,7 @@ readonly USER_SOFTWARE_INFOSEC__INSTALL_DEPENDENCIES=(
   'libncursesw5-dev'
   'yasm'
   'pciutils'
+  'openjdk-21-jdk'
 )
 readonly USER_SOFTWARE_INFOSEC__INSTALL_PACKAGES=(
   'xxd'
@@ -64,6 +65,9 @@ user_software_infosec__install_all() {
 
   # Steganography
   _install_binwalk; _install_stegseek
+
+  # Reverse Engineering
+  _install_ghidra
   
   normalize_local_bin
 
@@ -143,9 +147,13 @@ _install_dirsearch() {
 
 _install_feroxbuster() {
   wget_download 'https://github.com/epi052/feroxbuster/releases/latest/download/feroxbuster_amd64.deb.zip'
-  unzip 'feroxbuster'*
+
+  unzip feroxbuster*.deb.zip
+  rm feroxbuster*.deb.zip
   
-  apt install ./feroxbuster*amd64.deb
+  apt install ./feroxbuster*.deb
+
+  rm feroxbuster*.deb
 }
 
 _install_ffuf() {
@@ -160,8 +168,8 @@ _install_aircrack-ng() {
 _install_wifit3() {
   wget_download 'https://github.com/derv82/wifit3/releases/latest/download/wifit3-linux-x64'
 
-  chmod 755 'wifit3-linux-x64'
-  mv 'wifit3-linux-x64' '/usr/local/bin/wifit3'
+  chmod 755 wifit3-linux-x64
+  mv wifit3-linux-x64 /usr/local/bin/wifit3
 }
 
 _install_wireshark() {
@@ -186,8 +194,8 @@ _install_ftp() {
 _install_enum4linux() {
   wget_download 'https://raw.githubusercontent.com/CiscoCXSecurity/enum4linux/master/enum4linux.pl'
   
-  chmod 755 'enum4linux.pl'
-  mv 'enum4linux.pl' /usr/local/bin/enum4linux
+  chmod 755 enum4linux.pl
+  mv enum4linux.pl /usr/local/bin/enum4linux
 }
 
 _install_binwalk() {
@@ -197,5 +205,15 @@ _install_binwalk() {
 _install_stegseek() {
   wget_github_repo_download_latest 'RickdeJager/stegseek' 'stegseek_.*-1.deb'
   apt install -y ./stegseek_*-1.deb
+}
+
+_install_ghidra() {
+  wget_github_repo_download_latest 'NationalSecurityAgency/ghidra' 'ghidra_.*_PUBLIC_.*.zip'
+
+  mk_dir /opt
+  unzip ghidra*.zip -d /opt
+  mv /opt/ghidra* /opt/ghidra
+
+  rm ghidra*.zip
 }
 

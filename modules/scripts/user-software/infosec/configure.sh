@@ -1,6 +1,7 @@
 user_software_infosec__configure_all() {
   # Configure infosec tools
   _configure_john; _configure_dirsearch; _configure_seclists
+  _configure_ghidra
 }
 
 _configure_john() {
@@ -69,5 +70,27 @@ _configure_wireshark() {
   export DEBIAN_FRONTEND='noninteractive'
 
   usermod -aG wireshark "$USERNAME"
+}
+
+_configure_ghidra() {
+  chmod 755 /opt/ghidra/ghidraRun
+  mk_dir /usr/local/bin
+  ln -s /opt/ghidra/ghidraRun /usr/local/bin/ghidra
+
+  local applications_dir=/usr/local/share/applications
+  mk_dir "$applications_dir"
+  cat > "$applications_dir/ghidra.desktop" << EOF
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Ghidra
+GenericName=Reverse Engineering Tool
+Comment=Software Reverse Engineering (SRE) suite
+Exec=ghidra
+Icon=/opt/ghidra/support/ghidra.ico
+Terminal=false
+Categories=Development;Security;
+StartupNotify=true
+EOF
 }
 
