@@ -30,6 +30,8 @@ readonly USER_SOFTWARE_INFOSEC__INSTALL_PACKAGES=(
   'hexedit'
   'steghide'
   'libimage-exiftool-perl'
+  'ltrace'
+  'strace'
 )
 
 user_software_infosec__install_all() {
