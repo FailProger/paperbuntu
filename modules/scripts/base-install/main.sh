@@ -4,13 +4,20 @@ source "$SCRIPTS_DIR/base-install/debootstrap.sh"
 
 install_base() {
   # Install dependencies
-  apt update
-  apt install -y ${BASE_INSTALL__DEBOOTSTRAP_DEPENDENCIES[@]} \
-                 ${BASE_INSTALL__DISK_DEPENDENCIES[@]}
+  _install_deps
 
-  trap 'umount_disk 1' SIGINT SIGTERM
+  trap 'lib__umount_disk 1' SIGINT SIGTERM
 
-  base_install__partition_disk
-  base_install__debootstrap_install
+  bi_disk__partition_disk
+  bi_debootstrap__install_base
+}
+
+_install_deps() {
+  local deps="
+  $(bi_disk__get_dependencies)
+  $(bi_debootstrap__get_dependencies)
+  "
+
+  lib__apt_install_dependencies "$deps"
 }
 

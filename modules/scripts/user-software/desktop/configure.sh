@@ -8,7 +8,7 @@ user_software_desktop__configure_all() {
   # Configure all desktop environment packs
   # Desktop
   _user_software_desktop__configure_windows_manager
-  _user_software_desktop__configure_visual_compouser
+  _user_software_desktop__configure_visual_composer
   _user_software_desktop__configure_statusbar
   _user_software_desktop__configure_wallpaper
   
@@ -24,7 +24,7 @@ _user_software_desktop__configure_windows_manager() {
   cp_config 'i3'
 }
 
-_user_software_desktop__configure_visual_compouser() {
+_user_software_desktop__configure_visual_composer() {
   cp_config 'picom'
 }
 

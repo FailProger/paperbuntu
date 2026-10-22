@@ -2,6 +2,7 @@
 readonly LIB_DIR=$(dirname "${BASH_SOURCE[0]}")
 
 # Imports
+source "$LIB_DIR/apt.sh"
 source "$LIB_DIR/disk.sh"
 source "$LIB_DIR/downloading.sh"
 source "$LIB_DIR/file.sh"

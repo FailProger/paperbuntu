@@ -1,4 +1,4 @@
-cleanup_apt() {
+lib__cleanup_apt() {
   local return_code="${1:-0}"
   
   apt autoremove -y; apt autoclean -y

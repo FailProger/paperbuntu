@@ -1,4 +1,4 @@
-get_disk_name() {
+lib__get_disk_name() {
   local disks_name="$(lsblk -l | grep disk | cut -f 1 -d ' ')"
   
   if [[ $(wc -l <<< "$disks_name") -eq 1 ]]; then
@@ -8,7 +8,7 @@ get_disk_name() {
   fi
 }
 
-get_disk_part_path() {
+lib__get_disk_part_path() {
   local disk_name="${1:?'Dont get disk name!'}"
   local part_number="${2:?'Dont get disk part number'}"
   
@@ -16,7 +16,7 @@ get_disk_part_path() {
   find /dev -name "$disk_name*$part_number"
 }
 
-umount_disk() {
+lib__umount_disk() {
   local return_code="${1:-0}"
   
   umount -R /mnt 2> /dev/null

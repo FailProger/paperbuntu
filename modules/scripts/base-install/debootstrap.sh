@@ -1,7 +1,9 @@
-# Script params
-readonly BASE_INSTALL__DEBOOTSTRAP_DEPENDENCIES=('debootstrap')
+bi_debootstrap__get_dependencies() {
+  local deps='debootstrap'
+  echo "$deps"
+}
 
-base_install__debootstrap_install() {
+bi_debootstrap__install_base() {
   # Install base system
   debootstrap --arch="$ARCH" --variant="$VARIANT" "$RELEASE" /mnt "$MIRROR"
 }

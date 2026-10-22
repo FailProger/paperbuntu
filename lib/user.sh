@@ -1,4 +1,4 @@
-get_user() {
+lib__get_user() {
   local users="$(ls /home)"
   local users_count=$(wc -l <<< "$users")
     
@@ -6,32 +6,32 @@ get_user() {
     echo "${users}"
     return 0
   elif [[ $users_count -gt 1 ]]; then
-    log_error "Find $users_count users in /home. Please rerun script and get username ($users). See more -h.";
+    lib__log_error "Find $users_count users in /home. Please rerun script and get username ($users). See more -h.";
   else
-    log_error "User directory in /home not found. Please create user home directory and rerun script."
+    lib__log_error "User directory in /home not found. Please create user home directory and rerun script."
   fi
   exit 1
 }
 
-cp_config() {
-  local home_config=${HOME_CONFIG:-"/home/$(get_user)/.config"}
+lib__cp_config() {
+  local home_config=${HOME_CONFIG:-"/home/$(lib__get_user)/.config"}
   local file="${1:?'Dont get file name!'}"
   local path="${2:-$home_config}"
   
   if [[ ! -d "$home_config" ]]; then
     if [[ -f "$home_config" ]]; then
-      log_error "Path $file is file. Please delete it and create .config dir."
+      lib__log_error "Path $file is file. Please delete it and create .config dir."
       exit 1
     fi
     mkdir -p "$home_config"
-    ch_own "$home_config"
+    lib__ch_own "$home_config"
   fi
 
   if [[ -d "$path" ]]; then
     path="$path/$(basename $file)"
   fi
   
-  mk_dir $(dirname "$path")
+  lib__mk_dir $(dirname "$path")
   if [[ -n "${DOTFILES_DIR:-}" ]]; then
     cp -r "$DOTFILES_DIR/$file" "$path"
   else
@@ -41,6 +41,6 @@ cp_config() {
   find "$path" -type d -exec chmod 700 {} +
   find "$path" -type f -exec chmod 600 {} +
   
-  ch_own "$path"
+  lib__ch_own "$path"
 }
 
