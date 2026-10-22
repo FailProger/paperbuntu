@@ -3,7 +3,7 @@ source "$SCRIPTS_DIR/user-software/cli/install.sh"
 source "$SCRIPTS_DIR/user-software/cli/configure.sh"
 
 install_cli() {
-  trap 'cleanup_apt 1' SIGINT SIGTERM
+  trap 'lib__cleanup_apt 1' SIGINT SIGTERM
 
   apt update
   apt install -y ${USER_SOFTWARE_CLI__INSTALL_DEPENDENCIES[@]} \
@@ -16,6 +16,6 @@ install_cli() {
   # Configure all cli programms
   user_software_cli__configure_all
   
-  cleanup_apt
+  lib__cleanup_apt
 }
 

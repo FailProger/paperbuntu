@@ -22,7 +22,7 @@ _system_setup__setup_hostname() {
 }
 
 _system_setup__setup_fstab() {
-  if is_uefi; then
+  if lib__is_uefi; then
     _system_setup__setup_fstab_uefi
   else
     _system_setup__setup_fstab_bios
@@ -30,8 +30,8 @@ _system_setup__setup_fstab() {
 }
 
 _system_setup__setup_fstab_uefi() {
-  local efi=$(get_disk_part_path "$DISK_NAME" '1')
-  local root=$(get_disk_part_path "$DISK_NAME" '2')
+  local efi=$(lib__get_disk_part_path "$DISK_NAME" '1')
+  local root=$(lib__get_disk_part_path "$DISK_NAME" '2')
   local efi_uuid=$(blkid -s UUID -o value "$efi")
   local root_uuid=$(blkid -s UUID -o value "$root")
 
@@ -45,7 +45,7 @@ EOF
 }
 
 _system_setup__setup_fstab_bios() {
-  local root=$(get_disk_part_path "$DISK_NAME" '1')
+  local root=$(lib__get_disk_part_path "$DISK_NAME" '1')
   local root_uuid=$(blkid -s UUID -o value "$root")
 
   # Configure fstab

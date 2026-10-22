@@ -1,7 +1,7 @@
 command_software() {
   # Check root user
   if [[ $EUID -ne 0 ]]; then
-    log_error "Run this command as root."
+    lib__log_error "Run this command as root."
     exit 1
   fi
   
@@ -15,7 +15,7 @@ command_software() {
     case "$opt" in
       u) username="$OPTARG";;
       y) run_install='yes';;
-      ?) log_error "Uncorrect option: -$OPTARG."; exit 1;;
+      ?) lib__log_error "Uncorrect option: -$OPTARG."; exit 1;;
     esac
   done
   
@@ -25,14 +25,14 @@ command_software() {
     case $run_install in
       Y|y|Yes|YES|yes) break;;
       N|n|No|NO|no) echo 'Exit...'; exit 0;;
-      *) run_install=''; log_error 'Please enter Yes/No.'; continue;;
+      *) run_install=''; lib__log_error 'Please enter Yes/No.'; continue;;
     esac
   done
 
   unset run_install
 
   # Get install params
-  readonly USERNAME="${username:-$(get_user)}"; unset username
+  readonly USERNAME="${username:-$(lib__get_user)}"; unset username
   readonly HOME="/home/$USERNAME"
   readonly HOME_CONFIG="$HOME/.config"
 

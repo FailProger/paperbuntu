@@ -1,7 +1,7 @@
 command_full_or_setup() {
   # Check root user
   if [[ $EUID -ne 0 ]]; then
-    log_error "Run this command as root."
+    lib__log_error "Run this command as root."
     exit 1
   fi
   
@@ -20,12 +20,12 @@ command_full_or_setup() {
       p) password="$OPTARG";;
       d) disk_name="$OPTARG";;
       y) run_install='yes';;
-      ?) log_error "Uncorrect option: -$OPTARG."; exit 1;;
+      ?) lib__log_error "Uncorrect option: -$OPTARG."; exit 1;;
     esac
   done
 
   # Get disk name
-  readonly DISK_NAME=${disk_name:-$(get_disk_name)}; unset disk_name
+  readonly DISK_NAME=${disk_name:-$(lib__get_disk_name)}; unset disk_name
   
   # Ask user continue installation
   while [[ -z "$run_install" ]]; do
@@ -41,7 +41,7 @@ command_full_or_setup() {
     case $run_install in
       Y|y|Yes|YES|yes) break;;
       N|n|No|NO|no) echo 'Exit...'; exit 0;;
-      *) run_install=''; log_error 'Please enter Yes/No.'; continue;;
+      *) run_install=''; lib__log_error 'Please enter Yes/No.'; continue;;
     esac
   done
 

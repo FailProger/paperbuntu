@@ -33,7 +33,7 @@ user_software_cli__install_all() {
   # Utils
   _install_gdu;
 
-  normalize_local_bin
+  lib__normalize_local_bin
   
   cd "$past_dir"
   rm -rf "$tmp_dir"
@@ -47,9 +47,9 @@ EOF
 }
 
 _install_nvim() {
-  wget_download 'https://github.com/neovim/neovim/releases/download/v0.11.7/nvim-linux-x86_64.tar.gz'
+  lib__wget_download 'https://github.com/neovim/neovim/releases/download/v0.11.7/nvim-linux-x86_64.tar.gz'
 
-  mk_dir /opt
+  lib__mk_dir /opt
   tar -xf 'nvim'* -C /opt
   mv /opt/nvim* /opt/nvim
   ln -s /opt/nvim/bin/nvim /usr/local/bin/nvim
@@ -58,47 +58,47 @@ _install_nvim() {
 }
 
 _install_bat() {
-  wget_github_repo_download_latest 'sharkdp/bat' 'bat_.*_amd64.deb'
+  lib__wget_github_repo_download_latest 'sharkdp/bat' 'bat_.*_amd64.deb'
   apt install ./bat_*_amd64.deb
 }
 
 _install_delta() {
-  wget_github_repo_download_latest 'dandavison/delta' 'git-delta_.*_amd64.deb'
+  lib__wget_github_repo_download_latest 'dandavison/delta' 'git-delta_.*_amd64.deb'
   apt install ./git-delta_*_amd64.deb
 }
 
 _install_gdu() {
-  wget_download 'https://github.com/dundee/gdu/releases/latest/download/gdu_linux_amd64.tgz'
-  mv_to_local_bin 'gdu'
+  lib__wget_download 'https://github.com/dundee/gdu/releases/latest/download/gdu_linux_amd64.tgz'
+  lib__mv_to_local_bin 'gdu'
 }
 
 _install_eza() {
-  wget_download 'https://github.com/eza-community/eza/releases/latest/download/eza_x86_64-unknown-linux-gnu.tar.gz'
-  mv_to_local_bin 'eza'
+  lib__wget_download 'https://github.com/eza-community/eza/releases/latest/download/eza_x86_64-unknown-linux-gnu.tar.gz'
+  lib__mv_to_local_bin 'eza'
 }
 
 _install_fzf() {
-  wget_github_repo_download_latest 'junegunn/fzf' 'fzf-.*-linux_amd64.tar.gz'
-  mv_to_local_bin 'fzf'
+  lib__wget_github_repo_download_latest 'junegunn/fzf' 'fzf-.*-linux_amd64.tar.gz'
+  lib__mv_to_local_bin 'fzf'
 }
 
 _install_zoxide() {
-  wget_github_repo_download_latest 'ajeetdsouza/zoxide' 'zoxide-.*-x86_64-unknown-linux-musl.tar.gz'
-  mv_to_local_bin 'zoxide'
+  lib__wget_github_repo_download_latest 'ajeetdsouza/zoxide' 'zoxide-.*-x86_64-unknown-linux-musl.tar.gz'
+  lib__mv_to_local_bin 'zoxide'
 }
 
 _install_atuin() {
-  wget_download 'https://github.com/atuinsh/atuin/releases/latest/download/atuin-x86_64-unknown-linux-gnu.tar.gz'
-  mv_to_local_bin 'atuin'
+  lib__wget_download 'https://github.com/atuinsh/atuin/releases/latest/download/atuin-x86_64-unknown-linux-gnu.tar.gz'
+  lib__mv_to_local_bin 'atuin'
 }
 
 _install_shellfirm() {
-  wget_github_repo_download_latest 'kaplanelad/shellfirm' 'shellfirm-.*-x86_64-linux.tar.xz'
-  mv_to_local_bin 'shellfirm'
+  lib__wget_github_repo_download_latest 'kaplanelad/shellfirm' 'shellfirm-.*-x86_64-linux.tar.xz'
+  lib__mv_to_local_bin 'shellfirm'
 }
 
 _install_starship() {
-  wget_download 'https://github.com/starship/starship/releases/latest/download/starship-x86_64-unknown-linux-gnu.tar.gz'
-  mv_to_local_bin 'starship'
+  lib__wget_download 'https://github.com/starship/starship/releases/latest/download/starship-x86_64-unknown-linux-gnu.tar.gz'
+  lib__mv_to_local_bin 'starship'
 }
 

@@ -21,15 +21,15 @@ user_software_desktop__configure_all() {
 
 # Desktop
 _user_software_desktop__configure_windows_manager() {
-  cp_config 'i3'
+  lib__cp_config 'i3'
 }
 
 _user_software_desktop__configure_visual_composer() {
-  cp_config 'picom'
+  lib__cp_config 'picom'
 }
 
 _user_software_desktop__configure_statusbar() {
-  cp_config 'polybar'
+  lib__cp_config 'polybar'
 
   chmod 700 "$HOME/.config/polybar/launch.sh"
 }
@@ -38,7 +38,7 @@ _user_software_desktop__configure_wallpaper() {
   local share_dir="$HOME/.local/share"
   sudo -u "$USERNAME" mkdir -p "$share_dir"
   
-  cp_config 'wallpapers' "$share_dir"
+  lib__cp_config 'wallpapers' "$share_dir"
 
   cat > "$HOME/.fehbg" << 'EOF'
 #!/bin/sh
@@ -56,7 +56,7 @@ EOF
 # Login
 _user_software_desktop__configure_display_manager() {
   local dm_dir='/etc/sddm.conf.d'
-  mk_dir "$dm_dir"
+  lib__mk_dir "$dm_dir"
   
   cat > "$dm_dir/autologin.conf" << EOF
 [Autologin]

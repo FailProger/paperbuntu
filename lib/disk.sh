@@ -4,7 +4,7 @@ lib__get_disk_name() {
   if [[ $(wc -l <<< "$disks_name") -eq 1 ]]; then
     echo "$disks_name"
   else
-    log_error "Found more 1 disks, please run script with -d flag and get disk name. For more see ./install.sh -h."
+    lib__log_error "Found more 1 disks, please run script with -d flag and get disk name. For more see ./install.sh -h."
   fi
 }
 

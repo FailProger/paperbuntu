@@ -3,7 +3,7 @@ system_setup__install_bootloader() {
 }
 
 _system_setup__install_grub() {
-  if is_uefi; then
+  if lib__is_uefi; then
     _system_setup__install_grub_uefi
   else
     _system_setup__install_grub_bios

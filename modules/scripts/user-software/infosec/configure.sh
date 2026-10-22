@@ -60,7 +60,7 @@ _configure_seclists() {
   
   rm -f "$leaked_db_dir/rockyou.txt.tar.gz"
 
-  mk_dir "$wordlists_dir"
+  lib__mk_dir "$wordlists_dir"
   ln -s "$leaked_db_dir/rockyou.txt" "$wordlists_dir/rockyou.txt"
 }
 
@@ -74,11 +74,11 @@ _configure_wireshark() {
 
 _configure_ghidra() {
   chmod 755 /opt/ghidra/ghidraRun
-  mk_dir /usr/local/bin
+  lib__mk_dir /usr/local/bin
   ln -s /opt/ghidra/ghidraRun /usr/local/bin/ghidra
 
   local applications_dir=/usr/local/share/applications
-  mk_dir "$applications_dir"
+  lib__mk_dir "$applications_dir"
   cat > "$applications_dir/ghidra.desktop" << EOF
 [Desktop Entry]
 Version=1.0

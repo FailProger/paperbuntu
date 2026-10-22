@@ -24,7 +24,7 @@ user_software_gui__install_all() {
   # Web Browsers
   _install_zen_browser
   
-  normalize_local_bin
+  lib__normalize_local_bin
   
   cd "$past_dir"
   rm -rf "$tmp_dir"
@@ -53,9 +53,9 @@ EOF
 }
 
 _install_zen_browser() {
-  wget_download 'https://github.com/zen-browser/desktop/releases/latest/download/zen.linux-x86_64.tar.xz'
+  lib__wget_download 'https://github.com/zen-browser/desktop/releases/latest/download/zen.linux-x86_64.tar.xz'
   
-  mk_dir /opt
+  lib__mk_dir /opt
   tar -xf zen*.tar.xz -C /opt
 
   rm zen*.tar.xz

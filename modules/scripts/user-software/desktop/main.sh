@@ -3,7 +3,7 @@ source "$SCRIPTS_DIR/user-software/desktop/install.sh"
 source "$SCRIPTS_DIR/user-software/desktop/configure.sh"
 
 install_desktop() {
-  trap 'cleanup_apt 1' SIGINT SIGTERM
+  trap 'lib__cleanup_apt 1' SIGINT SIGTERM
 
   apt update
   apt install -y ${USER_SOFTWARE_DESKTOP__INSTALL_DEPENDENCIES[@]} \
@@ -16,6 +16,6 @@ install_desktop() {
   # Configure all desktop environment packs
   user_software_desktop__configure_all
   
-  cleanup_apt
+  lib__cleanup_apt
 }
 

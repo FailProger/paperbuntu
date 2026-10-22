@@ -58,7 +58,7 @@ main() {
       command_full_or_setup $@
       ;;
     *)
-      log_error "Uncorrect command: $arg"; echo; _usage; exit 1;;
+      lib__log_error "Uncorrect command: $arg"; echo; _usage; exit 1;;
   esac
 }
 

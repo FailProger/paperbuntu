@@ -10,18 +10,18 @@ user_software_gui__configure_all() {
 
 _configure_alacritty() {
   # Configure alacritty
-  cp_config 'alacritty'
+  lib__cp_config 'alacritty'
   update-alternatives --install /usr/bin/x-terminal-emulator x-terminal-emulator "$(which alacritty)" 100
 }
 
 _configure_zen_browser() {
   # Configure Zen Browser
   chmod 755 /opt/zen/zen
-  mk_dir /usr/local/bin
+  lib__mk_dir /usr/local/bin
   ln -s /opt/zen/zen /usr/local/bin/zen
 
   local applications_dir='/usr/local/share/applications'
-  mk_dir "$applications_dir"
+  lib__mk_dir "$applications_dir"
   cat > "$applications_dir/zen.desktop" << EOF
 [Desktop Entry]
 Version=1.0

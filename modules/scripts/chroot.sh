@@ -1,11 +1,11 @@
 chroot_setup() {
-  trap 'umount_disk 1' SIGINT SIGTERM
+  trap 'lib__umount_disk 1' SIGINT SIGTERM
 
   _chroot__mount_system
   
   # Copy repo
   local repo_dir="/mnt/tmp/${REPO_URL##*/}"
-  mk_dir "$repo_dir"
+  lib__mk_dir "$repo_dir"
   cp -r "$ROOT_DIR"/. "$repo_dir"
 
   # Configure system
@@ -13,7 +13,7 @@ chroot_setup() {
 
   rm -rf "$repo_dir"
 
-  umount_disk
+  lib__umount_disk
   reboot
 }
 
@@ -24,7 +24,7 @@ _chroot__mount_system() {
   mount -t proc proc /mnt/proc
   mount -t sysfs sys /mnt/sys
   # If UEFI
-  is_uefi && mount --bind /sys/firmware/efi/efivars /mnt/sys/firmware/efi/efivars
+  lib__is_uefi && mount --bind /sys/firmware/efi/efivars /mnt/sys/firmware/efi/efivars
   
   cp /etc/resolv.conf /mnt/etc/resolv.conf
 }

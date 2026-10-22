@@ -7,7 +7,7 @@ source "$SCRIPTS_DIR/system-setup/bootloader.sh"
 source "$SCRIPTS_DIR/system-setup/user-packages.sh"
 
 setup_system() {
-  trap 'cleanup_apt 1' SIGINT SIGTERM
+  trap 'lib__cleanup_apt 1' SIGINT SIGTERM
   
   export DEBIAN_FRONTEND='noninteractive'
 
@@ -31,6 +31,6 @@ setup_system() {
   # Upgrade system
   apt upgrade -y
   
-  cleanup_apt
+  lib__cleanup_apt
 }
 

@@ -30,9 +30,9 @@ user_software_desktop__install_all() {
 _user_software_desktop__install_fonts() {
   # Install Hack Nerd Font
   local nerd_fonts_dir='/usr/local/share/fonts/hack-nerd-font/'
-  mk_dir "$nerd_fonts_dir"
+  lib__mk_dir "$nerd_fonts_dir"
   
-  wget_download 'https://github.com/ryanoasis/nerd-fonts/releases/latest/download/Hack.zip'
+  lib__wget_download 'https://github.com/ryanoasis/nerd-fonts/releases/latest/download/Hack.zip'
   unzip 'Hack.zip' -d "$nerd_fonts_dir"
   
   rm 'Hack.zip'

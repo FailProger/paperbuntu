@@ -17,35 +17,35 @@ _configure_zsh() {
   chsh -s "$(which zsh)" "$USERNAME"
   
   # Copy config files
-  cp_config 'zsh/zshenv' "$HOME/.zshenv"
-  cp_config 'zsh/zshrc' "$HOME/.zshrc"
-  cp_config 'zsh/zsh_custom' "$HOME/.zsh_custom"
+  lib__cp_config 'zsh/zshenv' "$HOME/.zshenv"
+  lib__cp_config 'zsh/zshrc' "$HOME/.zshrc"
+  lib__cp_config 'zsh/zsh_custom' "$HOME/.zsh_custom"
 }
 
 _configure_tmux() {
-  cp_config 'tmux/tmux.conf' "$HOME/.tmux.conf"
+  lib__cp_config 'tmux/tmux.conf' "$HOME/.tmux.conf"
 }
 
 _configure_starship() {
   local config_dir="$HOME/.config/starship"
-  mk_dir "$config_dir"
-  ch_own "$config_dir"
+  lib__mk_dir "$config_dir"
+  lib__ch_own "$config_dir"
   sudo -u "$USERNAME" starship preset 'jetpack' -o "$config_dir/starship.toml"
 }
 
 _configure_nvim() {
-  cp_config 'nvim'
+  lib__cp_config 'nvim'
 }
 
 _configure_git() {
-  cp_config 'git/gitconfig' "$HOME/.gitconfig"
+  lib__cp_config 'git/gitconfig' "$HOME/.gitconfig"
 }
 
 _configure_eza() {
-  cp_config 'eza'
+  lib__cp_config 'eza'
 }
 
 _configure_shellfirm() {
-  cp_config 'shellfirm'
+  lib__cp_config 'shellfirm'
 }
 
