@@ -40,9 +40,9 @@ _base_install__mount_uefi() {
   local root=$(get_disk_part_path "$DISK_NAME" '2')
 
   # Mount partitions
-  mount $root /mnt
+  mount "$root" /mnt
   mkdir -p /mnt/boot/efi
-  mount $efi /mnt/boot/efi
+  mount "$efi" /mnt/boot/efi
 }
 
 # --- BIOS ---
@@ -67,6 +67,6 @@ _base_install__mount_bios() {
   local root=$(get_disk_part_path "$DISK_NAME" '1')
 
   # Mount partitions
-  mount $root /mnt
+  mount "$root" /mnt
 }
 
