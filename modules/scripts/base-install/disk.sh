@@ -1,5 +1,10 @@
 bi_disk__get_dependencies() {
-  local deps='parted'
+  local deps='
+  parted
+  dosfstools
+  e2fsprogs
+  util-linux
+  '
   echo "$deps"
 }
 

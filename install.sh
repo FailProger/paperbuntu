@@ -4,6 +4,7 @@ set -euo pipefail
 
 # Global consts
 readonly ROOT_DIR=$(dirname "${BASH_SOURCE[0]}")
+export DEBIAN_FRONTEND='noninteractive'
 
 # Imports
 source "$ROOT_DIR/config.sh"

@@ -8,8 +8,6 @@ source "$SCRIPTS_DIR/system-setup/user-packages.sh"
 
 setup_system() {
   trap 'lib__cleanup_apt 1' SIGINT SIGTERM
-  
-  export DEBIAN_FRONTEND='noninteractive'
 
   # Install dependencies
   apt update

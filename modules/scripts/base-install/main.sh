@@ -4,7 +4,7 @@ source "$SCRIPTS_DIR/base-install/debootstrap.sh"
 
 install_base() {
   # Install dependencies
-  _install_deps
+  _bi__install_deps
 
   trap 'lib__umount_disk 1' SIGINT SIGTERM
 
@@ -12,7 +12,7 @@ install_base() {
   bi_debootstrap__install_base
 }
 
-_install_deps() {
+_bi__install_deps() {
   local deps="
   $(bi_disk__get_dependencies)
   $(bi_debootstrap__get_dependencies)

@@ -1,5 +1,10 @@
 bi_debootstrap__get_dependencies() {
-  local deps='debootstrap'
+  local deps='
+  debootstrap
+  mount
+  ubuntu-keyring
+  gnupg
+  '
   echo "$deps"
 }
 
