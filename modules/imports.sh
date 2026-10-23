@@ -1,11 +1,11 @@
 # Global consts
-readonly MODULES_DIR=$(dirname "${BASH_SOURCE[0]}")
+readonly MODULES_DIR="$ROOT_DIR/modules"
 
 # For imports in script files
 readonly SCRIPTS_DIR="$MODULES_DIR/scripts"
 
 # Imports
-source "$MODULES_DIR/../lib/main.sh"
+source "$ROOT_DIR/lib/main.sh"
 
 source "$MODULES_DIR/commands/full-or-setup.sh"
 source "$MODULES_DIR/commands/software.sh"

@@ -2,7 +2,7 @@ lib__apt_install_dependencies() {
   local deps=${1:?'Do not get dependencies to install!'}
   deps=$(printf '%s\n' $deps | awk '!seen[$0]++')
 
-  local deps_to_install=''
+  local deps_to_install
   local pkg
 
   for pkg in $deps; do

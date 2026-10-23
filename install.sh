@@ -3,7 +3,11 @@
 set -euo pipefail
 
 # Global consts
+readonly REPO_URL='https://github.com/FailProger/paperbuntu'
+
 readonly ROOT_DIR=$(dirname "${BASH_SOURCE[0]}")
+readonly DOTFILES_DIR="$ROOT_DIR/dotfiles"  # Need for lib
+
 export DEBIAN_FRONTEND='noninteractive'
 
 # Imports

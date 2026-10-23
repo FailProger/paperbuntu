@@ -1,17 +1,14 @@
-# Scripts consts
-# WARN: Don't change
-readonly REPO_URL='https://github.com/FailProger/paperbuntu'
-readonly DOTFILES_DIR=$(dirname "${BASH_SOURCE[0]}")/dotfiles
-
 # Installation params
 readonly DEFAULT_USERNAME='paperbuntu'
 readonly DEFAULT_PASSWORD='paperbuntu'
+readonly HOSTNAME='paperbuntu'
+readonly LOCALE='en_US.UTF-8'
+readonly TIMEZONE=''
 
 readonly RELEASE='noble'
 readonly MIRROR='http://archive.ubuntu.com/ubuntu'
-readonly ARCH='amd64'
 readonly VARIANT='minbase'
-
-# System params
-readonly LOCALE='en_US.UTF-8'
+readonly ARCH='auto'  # auto, amd64
+readonly FILE_SYSTEM='ext4'
+readonly BOOTLOADER='grub'  # no, grub
 

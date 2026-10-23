@@ -1,5 +1,5 @@
 # Imports
-source "$SCRIPTS_DIR/base-install/disk.sh"
+source "$SCRIPTS_DIR/base-install/disk/main.sh"
 source "$SCRIPTS_DIR/base-install/debootstrap.sh"
 
 install_base() {

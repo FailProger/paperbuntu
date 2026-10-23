@@ -1,5 +1,5 @@
 # Global consts
-readonly LIB_DIR=$(dirname "${BASH_SOURCE[0]}")
+readonly LIB_DIR="$ROOT_DIR/lib"
 
 # Imports
 source "$LIB_DIR/apt.sh"
