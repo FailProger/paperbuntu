@@ -23,6 +23,7 @@ autoload -Uz compinit && compinit -C
 # --- ZSH PLUGINS PARAMETERS ---
 # zsh-nvm
 export NVM_LAZY_LOAD=true
+export NVM_LAZY_LOAD_EXTRA_COMMANDS=('nvim')
 export NVM_AUTO_USE=true
 
 # python
