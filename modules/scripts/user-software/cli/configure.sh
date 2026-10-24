@@ -34,7 +34,17 @@ _configure_starship() {
 }
 
 _configure_nvim() {
-  cp_config 'nvim'
+  local config_dir="$HOME/.config/nvim"
+
+  git clone --depth 1 'https://github.com/AstroNvim/template' "$config_dir"
+  rm -rf "$config_dir/.git" "$config_dir/README.md"
+
+  cp -r "$DOTFILES_DIR/nvim" "$HOME/.config"
+
+  find "$config_dir" -type d -exec chmod 700 {} +
+  find "$config_dir" -type f -exec chmod 600 {} +
+
+  ch_own "$config_dir"
 }
 
 _configure_git() {
