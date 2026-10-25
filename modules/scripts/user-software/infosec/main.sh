@@ -6,7 +6,8 @@ install_infosec() {
   trap 'cleanup_apt 1' SIGINT SIGTERM
 
   apt update
-  apt install -y ${USER_SOFTWARE_INFOSEC__INSTALL_DEPENDENCIES[@]}
+  apt install -y ${USER_SOFTWARE_INFOSEC__INSTALL_DEPENDENCIES[@]} \
+                 ${USER_SOFTWARE_INFOSEC__INSTALL_PACKAGES[@]}
   
   # Install infosec tools
   user_software_infosec__install_all
