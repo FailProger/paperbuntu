@@ -27,27 +27,27 @@ return {
         -- Line movement
         H = { "^", desc = "Move to beginning of line" },
         L = { "$", desc = "Move to end of line" },
-        
-        -- File saving
-        ["<Leader>s"] = { ":lua vim.ui.input({prompt = 'Save as: '}, function(input) if input then vim.cmd('saveas ' .. input) vim.cmd('bd #') end end)<CR>", desc = "Save as" },
-        ["<Leader>W"] = { ":wa<CR>", desc = "Save all buffers" },
 
         -- Disable default binds
-        ["^"] = false,
-        ["$"] = false,
-        ["J"] = false,
+        J = { "<Nop>" }
       },
       -- Visual mode
       v = {
         -- Line movement
         H = { "^", desc = "Move to beginning of line" },
         L = { "$", desc = "Move to end of line" },
+
+        -- Disable default binds
+        J = { "<Nop>" }
       },
       -- Operator-pending mode
       o = {
         -- Line movement
         H = { "^", desc = "Move to beginning of line" },
         L = { "$", desc = "Move to end of line" },
+
+        -- Disable default binds
+        J = { "<Nop>" }
       },
     },
   },
